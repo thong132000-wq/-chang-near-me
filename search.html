@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>หาช่าง | ช่างใกล้ฉัน</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f5f7fa;
+    color:#172033;
+}
+
+header{
+    background:#111827;
+    color:white;
+    padding:16px 20px;
+}
+
+.nav{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.back{
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.container{
+    max-width:1100px;
+    margin:30px auto;
+    padding:0 20px;
+}
+
+h1{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#667085;
+    margin-bottom:25px;
+}
+
+.search-box{
+    background:white;
+    padding:20px;
+    border-radius:16px;
+    box-shadow:0 4px 18px rgba(0,0,0,.07);
+    display:grid;
+    grid-template-columns:1fr 1fr auto;
+    gap:12px;
+    margin-bottom:30px;
+}
+
+input,
+select{
+    width:100%;
+    padding:14px;
+    border:1px solid #d0d5dd;
+    border-radius:10px;
+    font-size:15px;
+}
+
+button{
+    border:0;
+    border-radius:10px;
+    padding:14px 22px;
+    background:#f97316;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+.results-title{
+    font-size:21px;
+    margin-bottom:15px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:16px;
+    padding:20px;
+    box-shadow:0 4px 18px rgba(0,0,0,.07);
+}
+
+.avatar{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:#e5e7eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    margin-bottom:14px;
+}
+
+.name{
+    font-size:19px;
+    font-weight:bold;
+    margin-bottom:5px;
+}
+
+.type{
+    color:#f97316;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.info{
+    color:#667085;
+    font-size:14px;
+    line-height:1.8;
+}
+
+.price{
+    margin-top:12px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.card-buttons{
+    display:flex;
+    gap:8px;
+    margin-top:16px;
+}
+
+.card-buttons button{
+    flex:1;
+    padding:11px 8px;
+}
+
+.profile{
+    background:#111827;
+}
+
+.empty{
+    display:none;
+    background:white;
+    padding:30px;
+    text-align:center;
+    border-radius:15px;
+    color:#667085;
+}
+
+@media(max-width:800px){
+
+    .search-box{
+        grid-template-columns:1fr;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    h1{
+        font-size:25px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="nav">
+
+<div class="logo">
+🔧 ช่างใกล้ฉัน
+</div>
+
+<a href="index.html" class="back">
+← กลับหน้าแรก
+</a>
+
+</div>
+
+</header>
+
+
+<div class="container">
+
+<h1>ค้นหาช่าง</h1>
+
+<p class="subtitle">
+ค้นหาช่างที่คุณต้องการในพื้นที่ใกล้บ้าน
+</p>
+
+
+<div class="search-box">
+
+<input
+type="text"
+id="keyword"
+placeholder="เช่น ช่างแอร์ ช่างไฟ ช่างประปา"
+>
+
+<select id="location">
+
+<option value="">ทุกพื้นที่</option>
+<option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+<option value="นนทบุรี">นนทบุรี</option>
+<option value="ปทุมธานี">ปทุมธานี</option>
+<option value="สมุทรปราการ">สมุทรปราการ</option>
+
+</select>
+
+<button onclick="search()">🔎 ค้นหาช่าง</button>
+
+</div>
+
+
+<h2 class="results-title">
+ช่างแนะนำ
+</h2>
+
+
+<div class="cards" id="cards">
+
+
+<div class="card technician"
+data-type="ช่างแอร์"
+data-location="นนทบุรี">
+
+<div class="avatar">❄️</div>
+
+<div class="name">
+ช่างสมชาย เซอร์วิส
+</div>
+
+<div class="type">
+ช่างแอร์
+</div>
+
+<div class="info">
+⭐ 4.9 (128 รีวิว)<br>
+📍 นนทบุรี<br>
+🛠️ ประสบการณ์ 8 ปี
+</div>
+
+<div class="price">
+เริ่มต้น 500 บาท
+</div>
+
+<div class="card-buttons">
+
+<button
+class="profile"
+onclick="viewProfile('ช่างสมชาย เซอร์วิส')">
+ดูโปรไฟล์
+</button>
+
+<button
+onclick="contact('ช่างสมชาย เซอร์วิส')">
+ติดต่อ
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card technician"
+data-type="ช่างไฟ"
+data-location="กรุงเทพมหานคร">
+
+<div class="avatar">⚡</div>
+
+<div class="name">
+ช่างประสิทธิ์ การไฟฟ้า
+</div>
+
+<div class="type">
+ช่างไฟ
+</div>
+
+<div class="info">
+⭐ 4.8 (94 รีวิว)<br>
+📍 กรุงเทพมหานคร<br>
+🛠️ ประสบการณ์ 10 ปี
+</div>
+
+<div class="price">
+เริ่มต้น 400 บาท
+</div>
+
+<div class="card-buttons">
+
+<button
+class="profile"
+onclick="viewProfile('ช่างประสิทธิ์ การไฟฟ้า')">
+ดูโปรไฟล์
+</button>
+
+<button
+onclick="contact('ช่างประสิทธิ์ การไฟฟ้า')">
+ติดต่อ
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card technician"
+data-type="ช่างซ่อมรถ"
+data-location="ปทุมธานี">
+
+<div class="avatar">🚗</div>
+
+<div class="name">
+วัฒนาเซอร์วิส
+</div>
+
+<div class="type">
+ช่างซ่อมรถ
+</div>
+
+<div class="info">
+⭐ 5.0 (76 รีวิว)<br>
+📍 ปทุมธานี<br>
+🛠️ ประสบการณ์ 12 ปี
+</div>
+
+<div class="price">
+เริ่มต้น 600 บาท
+</div>
+
+<div class="card-buttons">
+
+<button
+class="profile"
+onclick="viewProfile('วัฒนาเซอร์วิส')">
+ดูโปรไฟล์
+</button>
+
+<button
+onclick="contact('วัฒนาเซอร์วิส')">
+ติดต่อ
+</button>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="empty" id="empty">
+
+ไม่พบช่างที่ตรงกับการค้นหา
+
+</div>
+
+</div>
+
+
+<script>
+
+function search(){
+
+const keyword =
+document.getElementById("keyword")
+.value
+.trim()
+.toLowerCase();
+
+const location =
+document.getElementById("location")
+.value;
+
+const cards =
+document.querySelectorAll(".technician");
+
+let found = 0;
+
+cards.forEach(card => {
+
+const type =
+card.dataset.type.toLowerCase();
+
+const cardLocation =
+card.dataset.location;
+
+const keywordMatch =
+!keyword || type.includes(keyword);
+
+const locationMatch =
+!location || cardLocation === location;
+
+if(keywordMatch && locationMatch){
+
+card.style.display = "block";
+found++;
+
+}else{
+
+card.style.display = "none";
+
+}
+
+});
+
+document.getElementById("empty").style.display =
+found === 0 ? "block" : "none";
+
+}
+
+
+function viewProfile(name){
+
+alert(
+"โปรไฟล์ช่าง\n\n" +
+name +
+"\n\nหน้ารายละเอียดช่างจะสร้างในขั้นตอนถัดไป"
+);
+
+}
+
+
+function contact(name){
+
+alert(
+"ติดต่อ " +
+name +
+"\n\nระบบโทร / LINE / แชต\n" +
+"จะเชื่อมต่อในขั้นตอนถัดไป"
+);
+
+}
+
+</script>
+
+</body>
+</html>
