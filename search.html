@@ -394,15 +394,17 @@ onclick="contact('วัฒนาเซอร์วิส')">
 
 function search(){
 
+const params = new URLSearchParams(window.location.search);
+
 const keyword =
-document.getElementById("keyword")
-.value
-.trim()
-.toLowerCase();
+params.get("keyword") || "";
 
 const location =
-document.getElementById("location")
-.value;
+params.get("location") || "";
+
+document.getElementById("keyword").value = keyword;
+
+document.getElementById("location").value = location;
 
 const cards =
 document.querySelectorAll(".technician");
@@ -418,7 +420,7 @@ const cardLocation =
 card.dataset.location;
 
 const keywordMatch =
-!keyword || type.includes(keyword);
+!keyword || type.includes(keyword.toLowerCase());
 
 const locationMatch =
 !location || cardLocation === location;
@@ -434,6 +436,12 @@ card.style.display = "none";
 
 }
 
+});
+
+document.getElementById("empty").style.display =
+found === 0 ? "block" : "none";
+
+}
 });
 
 document.getElementById("empty").style.display =
