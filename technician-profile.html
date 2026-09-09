@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>โปรไฟล์ช่าง | ช่างใกล้ฉัน</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f5f7fa;
+color:#172033;
+}
+
+header{
+background:#0b1736;
+color:white;
+padding:18px 20px;
+}
+
+.header-inner{
+max-width:900px;
+margin:auto;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+}
+
+.back{
+color:white;
+text-decoration:none;
+font-size:14px;
+}
+
+.container{
+max-width:900px;
+margin:25px auto;
+padding:0 16px;
+}
+
+.profile{
+background:white;
+border-radius:16px;
+padding:25px;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.profile-top{
+text-align:center;
+}
+
+.avatar{
+width:100px;
+height:100px;
+border-radius:50%;
+background:#ff7a00;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:38px;
+font-weight:bold;
+margin:0 auto 15px;
+}
+
+.name{
+font-size:25px;
+font-weight:bold;
+margin-bottom:8px;
+}
+
+.rating{
+color:#f59e0b;
+font-size:18px;
+margin-bottom:8px;
+}
+
+.location{
+color:#667085;
+margin-bottom:20px;
+}
+
+.info{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-top:20px;
+}
+
+.info-box{
+background:#f7f8fa;
+padding:15px;
+border-radius:10px;
+}
+
+.info-title{
+font-size:13px;
+color:#667085;
+margin-bottom:5px;
+}
+
+.info-value{
+font-weight:bold;
+font-size:16px;
+}
+
+.section{
+margin-top:25px;
+}
+
+.section h2{
+font-size:19px;
+margin-bottom:10px;
+}
+
+.description{
+line-height:1.7;
+color:#4b5563;
+}
+
+.buttons{
+display:flex;
+gap:10px;
+margin-top:25px;
+}
+
+.btn{
+flex:1;
+border:0;
+padding:14px;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+text-decoration:none;
+text-align:center;
+}
+
+.call{
+background:#0b1736;
+color:white;
+}
+
+.line{
+background:#ff7a00;
+color:white;
+}
+
+@media(max-width:600px){
+
+.info{
+grid-template-columns:1fr;
+}
+
+.buttons{
+flex-direction:column;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="header-inner">
+
+<div class="logo">
+ช่างใกล้ฉัน
+</div>
+
+<a href="search.html" class="back">
+← กลับหน้าค้นหา
+</a>
+
+</div>
+
+</header>
+
+
+<div class="container">
+
+<div class="profile">
+
+<div class="profile-top">
+
+<div class="avatar">
+ช
+</div>
+
+<div class="name">
+ช่างสมชาย เซอร์วิส
+</div>
+
+<div class="rating">
+⭐ 4.9 / 5.0
+</div>
+
+<div class="location">
+📍 นนทบุรี
+</div>
+
+</div>
+
+
+<div class="info">
+
+<div class="info-box">
+
+<div class="info-title">
+ประเภทงาน
+</div>
+
+<div class="info-value">
+🔧 ช่างแอร์
+</div>
+
+</div>
+
+
+<div class="info-box">
+
+<div class="info-title">
+ประสบการณ์
+</div>
+
+<div class="info-value">
+8 ปี
+</div>
+
+</div>
+
+
+<div class="info-box">
+
+<div class="info-title">
+ราคาเริ่มต้น
+</div>
+
+<div class="info-value">
+500 บาท
+</div>
+
+</div>
+
+
+<div class="info-box">
+
+<div class="info-title">
+รีวิว
+</div>
+
+<div class="info-value">
+128 รีวิว
+</div>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h2>
+เกี่ยวกับช่าง
+</h2>
+
+<div class="description">
+
+รับติดตั้ง ล้าง ซ่อม และตรวจเช็กเครื่องปรับอากาศ
+ให้บริการในพื้นที่นนทบุรีและพื้นที่ใกล้เคียง
+มีประสบการณ์ทำงานมากกว่า 8 ปี
+เน้นงานเรียบร้อย ราคาเป็นธรรม และตรงต่อเวลา
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h2>
+บริการ
+</h2>
+
+<div class="description">
+
+• ล้างแอร์<br>
+• ซ่อมแอร์<br>
+• เติมน้ำยาแอร์<br>
+• ติดตั้งแอร์<br>
+• ตรวจเช็กระบบแอร์
+
+</div>
+
+</div>
+
+
+<div class="buttons">
+
+<a href="tel:0800000000" class="btn call">
+📞 โทรหาช่าง
+</a>
+
+<a href="#" class="btn line" onclick="contactLine(); return false;">
+💬 ติดต่อ LINE
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+function contactLine(){
+
+alert(
+"ระบบ LINE ของช่าง\n\n" +
+"จะเชื่อมต่อกับบัญชี LINE ของช่างในขั้นตอนถัดไป"
+);
+
+}
+
+</script>
+
+</body>
+</html>
