@@ -390,83 +390,77 @@ onclick="contact('วัฒนาเซอร์วิส')">
 </div>
 
 
+
+
 <script>
 
 function search(){
 
-const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(window.location.search);
 
-const keyword =
-params.get("keyword") || "";
+    const keyword =
+        params.get("keyword") || "";
 
-const location =
-params.get("location") || "";
+    const location =
+        params.get("location") || "";
 
-document.getElementById("keyword").value = keyword;
+    document.getElementById("keyword").value = keyword;
 
-document.getElementById("location").value = location;
+    document.getElementById("location").value = location;
 
-const cards =
-document.querySelectorAll(".technician");
+    const cards =
+        document.querySelectorAll(".technician");
 
-let found = 0;
+    let found = 0;
 
-cards.forEach(card => {
+    cards.forEach(card => {
 
-const type =
-card.dataset.type.toLowerCase();
+        const type =
+            card.dataset.type.toLowerCase();
 
-const cardLocation =
-card.dataset.location;
+        const cardLocation =
+            card.dataset.location;
 
-const keywordMatch =
-!keyword || type.includes(keyword.toLowerCase());
+        const keywordMatch =
+            !keyword || type.includes(keyword.toLowerCase());
 
-const locationMatch =
-!location || cardLocation === location;
+        const locationMatch =
+            !location || cardLocation === location;
 
-if(keywordMatch && locationMatch){
+        if(keywordMatch && locationMatch){
 
-card.style.display = "block";
-found++;
+            card.style.display = "block";
+            found++;
 
-}else{
+        }else{
 
-card.style.display = "none";
+            card.style.display = "none";
 
-}
+        }
 
-});
+    });
 
-document.getElementById("empty").style.display =
-found === 0 ? "block" : "none";
-
-}
-});
-
-document.getElementById("empty").style.display =
-found === 0 ? "block" : "none";
+    document.getElementById("empty").style.display =
+        found === 0 ? "block" : "none";
 
 }
+
 
 function viewProfile(name){
 
-window.location.href = "technician-profile.html";
-
-}
-
+    window.location.href = "technician-profile.html";
 
 }
 
 
 function contact(name){
 
-alert(
-"ติดต่อ " +
-name +
-"\n\nระบบโทร / LINE / แชต\n" +
-"จะเชื่อมต่อในขั้นตอนถัดไป"
-);
+    alert(
+        "ติดต่อ " +
+        name +
+        "\n\nระบบโทร / LINE / แชต\n" +
+        "จะเชื่อมต่อในขั้นตอนถัดไป"
+    );
 
 }
 
