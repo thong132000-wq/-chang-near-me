@@ -1296,26 +1296,30 @@
 
     function searchTechnician() {
 
-      const keyword =
-        document.getElementById("searchInput").value.trim();
+  const keyword =
+    document.getElementById("searchInput").value.trim();
 
-      const location =
-        document.getElementById("locationSelect").value;
+  const location =
+    document.getElementById("locationSelect").value;
 
-      if (!keyword && !location) {
+  let url = "search.html";
 
-        alert("กรุณาเลือกประเภทช่างหรือพื้นที่ก่อนค้นหา");
+  const params = new URLSearchParams();
 
-        return;
-      }
+  if (keyword) {
+    params.set("keyword", keyword);
+  }
 
-      alert(
-        "ระบบค้นหาช่าง\n\n" +
-        "ประเภทงาน: " + (keyword || "ทั้งหมด") +
-        "\nพื้นที่: " + (location || "ทั้งหมด") +
-        "\n\nระบบฐานข้อมูลจะเชื่อมต่อในขั้นตอนถัดไป"
-      );
-    }
+  if (location) {
+    params.set("location", location);
+  }
+
+  if (params.toString()) {
+    url += "?" + params.toString();
+  }
+
+  window.location.href = url;
+}
 
 
     function selectCategory(category) {
