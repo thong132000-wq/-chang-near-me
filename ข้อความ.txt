@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ช่างใกล้ฉัน | หาช่างง่าย ใกล้บ้าน มั่นใจได้</title>
+  <meta name="description" content="ช่างใกล้ฉัน ตลาดกลางหาช่าง ค้นหาช่างใกล้บ้าน ดูผลงาน ราคา และรีวิวก่อนตัดสินใจ">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy: #102a56;
+      --navy-dark: #0b1e3d;
+      --orange: #ff7618;
+      --orange-light: #ff9347;
+      --bg: #f6f8fc;
+      --white: #ffffff;
+      --text: #172033;
+      --muted: #6d788b;
+      --border: #e5e9f0;
+      --green: #159a68;
+      --shadow: 0 12px 35px rgba(16, 42, 86, 0.08);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   "Noto Sans Thai", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: auto;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================== */
+
+    .navbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--navy);
+      white-space: nowrap;
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      background: var(--orange);
+      display: grid;
+      place-items: center;
+      font-size: 21px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      color: #4c5668;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: var(--orange);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 11px 18px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    .btn-outline {
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--navy);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--navy);
+    }
+
+    .btn-orange {
+      background: var(--orange);
+      color: white;
+    }
+
+    .btn-orange:hover {
+      background: #eb6209;
+      transform: translateY(-1px);
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero {
+      background:
+        radial-gradient(circle at 85% 20%, rgba(255, 147, 71, 0.25), transparent 28%),
+        linear-gradient(135deg, var(--navy), #173d78);
+      color: white;
+      padding: 80px 0 90px;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 850px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 13px;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 64px);
+      line-height: 1.08;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      color: #ffad70;
+    }
+
+    .hero-text {
+      font-size: 18px;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 35px;
+    }
+
+    .search-box {
+      background: white;
+      border-radius: 18px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr auto;
+      gap: 10px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+      text-align: left;
+    }
+
+    .search-field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 5px 14px;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: #fafbfc;
+    }
+
+    .search-field-icon {
+      font-size: 20px;
+    }
+
+    .search-field input,
+    .search-field select {
+      border: none;
+      outline: none;
+      width: 100%;
+      background: transparent;
+      color: var(--text);
+    }
+
+    .search-button {
+      border: none;
+      background: var(--orange);
+      color: white;
+      border-radius: 11px;
+      padding: 0 25px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .search-button:hover {
+      background: #e9650b;
+    }
+
+    /* =========================
+       TRUST
+    ========================== */
+
+    .trust-bar {
+      background: white;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trust-inner {
+      min-height: 82px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: center;
+      gap: 20px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #4d5869;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .trust-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #fff2e9;
+      font-size: 18px;
+    }
+
+    /* =========================
+       SECTIONS
+    ========================== */
+
+    .section {
+      padding: 75px 0;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .section-head h2 {
+      font-size: 32px;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+    }
+
+    /* =========================
+       CATEGORIES
+    ========================== */
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+    }
+
+    .category {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .category:hover {
+      transform: translateY(-4px);
+      border-color: var(--orange-light);
+      box-shadow: var(--shadow);
+    }
+
+    .category-icon {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .category-name {
+      font-weight: 800;
+      color: var(--navy);
+      font-size: 14px;
+    }
+
+    /* =========================
+       TECHNICIANS
+    ========================== */
+
+    .technicians {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .technician-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: 0.2s;
+    }
+
+    .technician-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .technician-image {
+      height: 190px;
+      background:
+        linear-gradient(135deg, #dfe6f2, #f6f8fc);
+      display: grid;
+      place-items: center;
+      font-size: 65px;
+      position: relative;
+    }
+
+    .verified {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--green);
+      color: white;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .technician-content {
+      padding: 20px;
+    }
+
+    .technician-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 3px;
+    }
+
+    .technician-job {
+      color: var(--orange);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .rating {
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .rating strong {
+      color: #d98500;
+    }
+
+    .location,
+    .price {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .price strong {
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    .card-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .card-btn {
+      padding: 10px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--navy);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .card-btn.primary {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+    }
+
+    .card-btn:hover {
+      opacity: 0.9;
+    }
+
+    .center-button {
+      text-align: center;
+      margin-top: 35px;
+    }
+
+    /* =========================
+       HOW IT WORKS
+    ========================== */
+
+    .how-section {
+      background: white;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .step {
+      text-align: center;
+      padding: 25px;
+    }
+
+    .step-number {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: #fff0e7;
+      color: var(--orange);
+      display: grid;
+      place-items: center;
+      font-size: 21px;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      color: var(--navy);
+      margin-bottom: 7px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* =========================
+       TECHNICIAN CTA
+    ========================== */
+
+    .technician-cta {
+      padding: 75px 0;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--navy), #173d78);
+      color: white;
+      border-radius: 24px;
+      padding: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .cta-box h2 {
+      font-size: 31px;
+      margin-bottom: 8px;
+    }
+
+    .cta-box p {
+      color: rgba(255,255,255,0.75);
+    }
+
+    .cta-button {
+      flex-shrink: 0;
+      background: var(--orange);
+      color: white;
+      border: none;
+      border-radius: 11px;
+      padding: 14px 23px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+      background: var(--navy-dark);
+      color: white;
+      padding: 50px 0 25px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 35px;
+    }
+
+    .footer-brand p {
+      color: rgba(255,255,255,0.65);
+      margin-top: 12px;
+      max-width: 350px;
+      font-size: 14px;
+    }
+
+    .footer-column h4 {
+      margin-bottom: 13px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: rgba(255,255,255,0.65);
+      font-size: 14px;
+      margin: 7px 0;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .copyright {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+      color: rgba(255,255,255,0.45);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 900px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      .categories {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .technicians {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .search-box {
+        grid-template-columns: 1fr;
+      }
+
+      .search-button {
+        padding: 14px;
+      }
+
+      .cta-box {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .container {
+        width: min(100% - 22px, 1180px);
+      }
+
+      .nav-inner {
+        min-height: 64px;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .logo-icon {
+        width: 34px;
+        height: 34px;
+      }
+
+      .nav-actions .btn-outline {
+        display: none;
+      }
+
+      .nav-actions .btn-orange {
+        padding: 9px 12px;
+        font-size: 13px;
+      }
+
+      .hero {
+        padding: 55px 0 60px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .hero-text {
+        font-size: 15px;
+      }
+
+      .trust-inner {
+        grid-template-columns: 1fr;
+        padding: 18px 0;
+        gap: 13px;
+      }
+
+      .section {
+        padding: 55px 0;
+      }
+
+      .section-head h2 {
+        font-size: 27px;
+      }
+
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .technicians {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-box {
+        padding: 35px 22px;
+      }
+
+      .cta-box h2 {
+        font-size: 26px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVBAR
+  ========================== -->
+
+  <header class="navbar">
+    <div class="container nav-inner">
+
+      <a href="#" class="logo">
+        <span class="logo-icon">🔧</span>
+        <span>ช่างใกล้ฉัน</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#home">หน้าแรก</a>
+        <a href="#categories">หาช่าง</a>
+        <a href="#how">วิธีใช้งาน</a>
+        <a href="#technician">เป็นช่าง</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-outline" onclick="login()">
+          เข้าสู่ระบบ
+        </button>
+
+        <button class="btn btn-orange" onclick="registerTechnician()">
+          เป็นช่าง
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <main id="home">
+
+    <section class="hero">
+
+      <div class="container">
+
+        <div class="hero-content">
+
+          <div class="hero-badge">
+            🔧 ตลาดกลางหาช่าง
+          </div>
+
+          <h1>
+            หาช่างง่าย<br>
+            <span>ใกล้บ้าน มั่นใจได้</span>
+          </h1>
+
+          <p class="hero-text">
+            ค้นหาช่างที่คุณต้องการ ดูผลงาน ราคา
+            และรีวิวก่อนตัดสินใจ
+          </p>
+
+          <div class="search-box">
+
+            <div class="search-field">
+              <span class="search-field-icon">🔍</span>
+
+              <input
+                id="searchInput"
+                type="text"
+                placeholder="คุณกำลังหาช่างอะไร?"
+              >
+            </div>
+
+            <div class="search-field">
+              <span class="search-field-icon">📍</span>
+
+              <select id="locationSelect">
+                <option value="">เลือกพื้นที่</option>
+                <option>กรุงเทพมหานคร</option>
+                <option>นนทบุรี</option>
+                <option>ปทุมธานี</option>
+                <option>สมุทรปราการ</option>
+                <option>นครปฐม</option>
+                <option>ต่างจังหวัด</option>
+              </select>
+            </div>
+
+            <button class="search-button" onclick="searchTechnician()">
+              🔍 ค้นหาช่าง
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         TRUST BAR
+    ========================== -->
+
+    <section class="trust-bar">
+
+      <div class="container trust-inner">
+
+        <div class="trust-item">
+          <span class="trust-icon">📍</span>
+          ค้นหาช่างตามพื้นที่
+        </div>
+
+        <div class="trust-item">
+          <span class="trust-icon">⭐</span>
+          ดูคะแนนและรีวิว
+        </div>
+
+        <div class="trust-item">
+          <span class="trust-icon">🛠️</span>
+          ดูผลงานก่อนตัดสินใจ
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         CATEGORIES
+    ========================== -->
+
+    <section class="section" id="categories">
+
+      <div class="container">
+
+        <div class="section-head">
+
+          <h2>หาช่างตามประเภทงาน</h2>
+
+          <p>
+            เลือกประเภทช่างที่คุณกำลังมองหา
+          </p>
+
+        </div>
+
+
+        <div class="categories">
+
+          <div class="category" onclick="selectCategory('ช่างแอร์')">
+            <div class="category-icon">❄️</div>
+            <div class="category-name">ช่างแอร์</div>
+          </div>
+
+          <div class="category" onclick="selectCategory('ช่างไฟ')">
+            <div class="category-icon">⚡</div>
+            <div class="category-name">ช่างไฟ</div>
+          </div>
+
+          <div class="category" onclick="selectCategory('ช่างประปา')">
+            <div class="category-icon">🚿</div>
+            <div class="category-name">ช่างประปา</div>
+          </div>
+
+          <div class="category" onclick="selectCategory('ช่างซ่อมรถ')">
+            <div class="category-icon">🚗</div>
+            <div class="category-name">ช่างซ่อมรถ</div>
+          </div>
+
+          <div class="category" onclick="selectCategory('ช่างก่อสร้าง')">
+            <div class="category-icon">🧱</div>
+            <div class="category-name">ช่างก่อสร้าง</div>
+          </div>
+
+          <div class="category" onclick="selectCategory('ช่างทาสี')">
+            <div class="category-icon">🎨</div>
+            <div class="category-name">ช่างทาสี</div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         RECOMMENDED TECHNICIANS
+    ========================== -->
+
+    <section class="section" style="padding-top:0;">
+
+      <div class="container">
+
+        <div class="section-head">
+
+          <h2>⭐ ช่างแนะนำ</h2>
+
+          <p>
+            ช่างที่น่าสนใจสำหรับคุณ
+          </p>
+
+        </div>
+
+
+        <div class="technicians">
+
+
+          <!-- CARD 1 -->
+
+          <article class="technician-card">
+
+            <div class="technician-image">
+
+              👨‍🔧
+
+              <span class="verified">
+                ✓ ยืนยันแล้ว
+              </span>
+
+            </div>
+
+            <div class="technician-content">
+
+              <h3 class="technician-name">
+                ช่างสมชาย เซอร์วิส
+              </h3>
+
+              <div class="technician-job">
+                ❄️ ช่างแอร์
+              </div>
+
+              <div class="rating">
+                ⭐ <strong>4.9</strong>
+                <span>(128 รีวิว)</span>
+              </div>
+
+              <div class="location">
+                📍 นนทบุรี
+              </div>
+
+              <div class="price">
+                ราคาเริ่มต้น
+                <strong>500 บาท</strong>
+              </div>
+
+              <div class="card-buttons">
+
+                <button
+                  class="card-btn"
+                  onclick="viewProfile('ช่างสมชาย เซอร์วิส')">
+                  ดูโปรไฟล์
+                </button>
+
+                <button
+                  class="card-btn primary"
+                  onclick="contactTechnician('ช่างสมชาย เซอร์วิส')">
+                  ติดต่อ
+                </button>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- CARD 2 -->
+
+          <article class="technician-card">
+
+            <div class="technician-image">
+
+              👷
+
+              <span class="verified">
+                ✓ ยืนยันแล้ว
+              </span>
+
+            </div>
+
+            <div class="technician-content">
+
+              <h3 class="technician-name">
+                ช่างประสิทธิ์ การไฟฟ้า
+              </h3>
+
+              <div class="technician-job">
+                ⚡ ช่างไฟ
+              </div>
+
+              <div class="rating">
+                ⭐ <strong>4.8</strong>
+                <span>(94 รีวิว)</span>
+              </div>
+
+              <div class="location">
+                📍 กรุงเทพมหานคร
+              </div>
+
+              <div class="price">
+                ราคาเริ่มต้น
+                <strong>400 บาท</strong>
+              </div>
+
+              <div class="card-buttons">
+
+                <button
+                  class="card-btn"
+                  onclick="viewProfile('ช่างประสิทธิ์ การไฟฟ้า')">
+                  ดูโปรไฟล์
+                </button>
+
+                <button
+                  class="card-btn primary"
+                  onclick="contactTechnician('ช่างประสิทธิ์ การไฟฟ้า')">
+                  ติดต่อ
+                </button>
+
+              </div>
+
+            </div>
+
+          </article>
+
+
+          <!-- CARD 3 -->
+
+          <article class="technician-card">
+
+            <div class="technician-image">
+
+              🔧
+
+              <span class="verified">
+                ✓ ยืนยันแล้ว
+              </span>
+
+            </div>
+
+            <div class="technician-content">
+
+              <h3 class="technician-name">
+                วัฒนาเซอร์วิส
+              </h3>
+
+              <div class="technician-job">
+                🚗 ช่างซ่อมรถ
+              </div>
+
+              <div class="rating">
+                ⭐ <strong>5.0</strong>
+                <span>(76 รีวิว)</span>
+              </div>
+
+              <div class="location">
+                📍 ปทุมธานี
+              </div>
+
+              <div class="price">
+                ราคาเริ่มต้น
+                <strong>600 บาท</strong>
+              </div>
+
+              <div class="card-buttons">
+
+                <button
+                  class="card-btn"
+                  onclick="viewProfile('วัฒนาเซอร์วิส')">
+                  ดูโปรไฟล์
+                </button>
+
+                <button
+                  class="card-btn primary"
+                  onclick="contactTechnician('วัฒนาเซอร์วิส')">
+                  ติดต่อ
+                </button>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+
+        <div class="center-button">
+
+          <button
+            class="btn btn-outline"
+            onclick="viewAllTechnicians()">
+            ดูช่างทั้งหมด →
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         HOW IT WORKS
+    ========================== -->
+
+    <section class="section how-section" id="how">
+
+      <div class="container">
+
+        <div class="section-head">
+
+          <h2>ช่างใกล้ฉันใช้งานอย่างไร?</h2>
+
+          <p>
+            หาช่างได้ง่ายในไม่กี่ขั้นตอน
+          </p>
+
+        </div>
+
+
+        <div class="steps">
+
+          <div class="step">
+
+            <div class="step-number">
+              1
+            </div>
+
+            <h3>
+              ค้นหาช่าง
+            </h3>
+
+            <p>
+              เลือกประเภทงานและพื้นที่
+              ที่คุณต้องการ
+            </p>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              2
+            </div>
+
+            <h3>
+              เปรียบเทียบ
+            </h3>
+
+            <p>
+              ดูผลงาน ราคา คะแนน
+              และรีวิวของช่าง
+            </p>
+
+          </div>
+
+
+          <div class="step">
+
+            <div class="step-number">
+              3
+            </div>
+
+            <h3>
+              ติดต่อช่าง
+            </h3>
+
+            <p>
+              ติดต่อช่างโดยตรง
+              และตกลงรายละเอียดงาน
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         TECHNICIAN CTA
+    ========================== -->
+
+    <section class="technician-cta" id="technician">
+
+      <div class="container">
+
+        <div class="cta-box">
+
+          <div>
+
+            <h2>
+              👨‍🔧 คุณเป็นช่าง?
+            </h2>
+
+            <p>
+              สร้างโปรไฟล์ของคุณ ให้ลูกค้าเจอคุณมากขึ้น
+            </p>
+
+          </div>
+
+          <button
+            class="cta-button"
+            onclick="registerTechnician()">
+            ลงทะเบียนเป็นช่างฟรี →
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+
+          <div class="logo" style="color:white;">
+            <span class="logo-icon">🔧</span>
+            <span>ช่างใกล้ฉัน</span>
+          </div>
+
+          <p>
+            ตลาดกลางหาช่าง
+            เชื่อมต่อคนที่ต้องการช่าง
+            กับช่างมืออาชีพในพื้นที่
+          </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h4>สำหรับลูกค้า</h4>
+
+          <a href="#categories">
+            หาช่าง
+          </a>
+
+          <a href="#categories">
+            หมวดหมู่ช่าง
+          </a>
+
+          <a href="#how">
+            วิธีใช้งาน
+          </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h4>สำหรับช่าง</h4>
+
+          <a href="#technician">
+            ลงทะเบียนเป็นช่าง
+          </a>
+
+          <a href="#">
+            เข้าสู่ระบบ
+          </a>
+
+          <a href="#">
+            โปรโมตโปรไฟล์
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="copyright">
+        © 2026 ช่างใกล้ฉัน — หาช่างง่าย ใกล้บ้าน มั่นใจได้
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+       ตอนนี้เป็นระบบทดลอง
+       ภายหลังจะเชื่อมฐานข้อมูลจริง
+  ========================== -->
+
+  <script>
+
+    function searchTechnician() {
+
+      const keyword =
+        document.getElementById("searchInput").value.trim();
+
+      const location =
+        document.getElementById("locationSelect").value;
+
+      if (!keyword && !location) {
+
+        alert("กรุณาเลือกประเภทช่างหรือพื้นที่ก่อนค้นหา");
+
+        return;
+      }
+
+      alert(
+        "ระบบค้นหาช่าง\n\n" +
+        "ประเภทงาน: " + (keyword || "ทั้งหมด") +
+        "\nพื้นที่: " + (location || "ทั้งหมด") +
+        "\n\nระบบฐานข้อมูลจะเชื่อมต่อในขั้นตอนถัดไป"
+      );
+    }
+
+
+    function selectCategory(category) {
+
+      document.getElementById("searchInput").value = category;
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+    function viewProfile(name) {
+
+      alert(
+        "กำลังเปิดโปรไฟล์\n\n" +
+        name +
+        "\n\nหน้าโปรไฟล์ช่างจะสร้างในขั้นตอนถัดไป"
+      );
+
+    }
+
+
+    function contactTechnician(name) {
+
+      alert(
+        "ติดต่อ " + name +
+        "\n\nระบบโทร / LINE / แชต\n" +
+        "จะเชื่อมต่อในขั้นตอนถัดไป"
+      );
+
+    }
+
+
+    function viewAllTechnicians() {
+
+      alert(
+        "หน้ารวมช่าง\n\n" +
+        "เราจะสร้าง search.html ในขั้นตอนถัดไป"
+      );
+
+    }
+
+
+    function registerTechnician() {
+
+      alert(
+        "สมัครเป็นช่าง\n\n" +
+        "หน้าลงทะเบียนช่างจะสร้างในขั้นตอนถัดไป"
+      );
+
+    }
+
+
+    function login() {
+
+      alert(
+        "เข้าสู่ระบบ\n\n" +
+        "ระบบ Login จะเชื่อมต่อในขั้นตอนถัดไป"
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>
