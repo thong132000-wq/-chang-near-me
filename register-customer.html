@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สมัครสมาชิก | ช่างใกล้ฉัน</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      background: #f5f7fa;
+      color: #172033;
+      min-height: 100vh;
+    }
+    .header {
+      background: #111827;
+      color: white;
+      padding: 18px 20px;
+      text-align: center;
+    }
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .container {
+      width: 100%;
+      max-width: 500px;
+      margin: 35px auto;
+      padding: 0 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 28px 22px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 8px;
+      font-size: 27px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 25px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 15px 0 7px;
+    }
+    input,
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+    input:focus,
+    select:focus {
+      border-color: #f97316;
+    }
+    .btn {
+      width: 100%;
+      border: none;
+      background: #f97316;
+      color: white;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: bold;
+      margin-top: 25px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      opacity: 0.9;
+    }
+    .back {
+      display: block;
+      text-align: center;
+      margin-top: 18px;
+      color: #374151;
+      text-decoration: none;
+    }
+    .login {
+      text-align: center;
+      margin-top: 22px;
+      color: #6b7280;
+    }
+    .login a {
+      color: #f97316;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .note {
+      background: #fff7ed;
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 18px;
+      font-size: 13px;
+      color: #9a3412;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">🔧 ช่างใกล้ฉัน</div>
+  </div>
+  <div class="container">
+    <div class="card">
+      <h1>สมัครสมาชิก</h1>
+      <p class="subtitle">
+        สร้างบัญชีสำหรับใช้บริการช่าง
+      </p>
+      <form onsubmit="registerCustomer(event)">
+        <label>ชื่อ - นามสกุล</label>
+        <input
+          type="text"
+          id="name"
+          placeholder="กรอกชื่อ - นามสกุล"
+          required
+        >
+        <label>เบอร์โทรศัพท์</label>
+        <input
+          type="tel"
+          id="phone"
+          placeholder="08xxxxxxxx"
+          required
+        >
+        <label>อีเมล</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="example@email.com"
+          required
+        >
+        <label>จังหวัด</label>
+        <select id="province" required>
+          <option value="">-- เลือกจังหวัด --</option>
+          <option>กรุงเทพมหานคร</option>
+          <option>นนทบุรี</option>
+          <option>ปทุมธานี</option>
+          <option>สมุทรปราการ</option>
+          <option>นครปฐม</option>
+          <option>สมุทรสาคร</option>
+          <option>พระนครศรีอยุธยา</option>
+          <option>ชลบุรี</option>
+          <option>เชียงใหม่</option>
+          <option>นครราชสีมา</option>
+          <option>ขอนแก่น</option>
+          <option>อุดรธานี</option>
+          <option>อุบลราชธานี</option>
+          <option>ศรีสะเกษ</option>
+          <option>อื่น ๆ</option>
+        </select>
+        <label>รหัสผ่าน</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="อย่างน้อย 6 ตัวอักษร"
+          minlength="6"
+          required
+        >
+        <label>ยืนยันรหัสผ่าน</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="กรอกรหัสผ่านอีกครั้ง"
+          minlength="6"
+          required
+        >
+        <button type="submit" class="btn">
+          สมัครสมาชิก
+        </button>
+      </form>
+      <div class="note">
+        🔒 ข้อมูลของคุณจะใช้สำหรับการสมัครสมาชิกและการติดต่อเกี่ยวกับบริการช่าง
+      </div>
+      <div class="login">
+        มีบัญชีอยู่แล้ว?
+        <a href="login.html">เข้าสู่ระบบ</a>
+      </div>
+      <a href="index.html" class="back">
+        ← กลับหน้าแรก
+      </a>
+    </div>
+  </div>
+  <script>
+    function registerCustomer(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const province = document.getElementById("province").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword =
+        document.getElementById("confirmPassword").value;
+      if (password !== confirmPassword) {
+        alert("รหัสผ่านไม่ตรงกันครับ");
+        return;
+      }
+      if (password.length < 6) {
+        alert("รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษรครับ");
+        return;
+      }
+      alert(
+        "สมัครสมาชิกสำเร็จครับ\n\n" +
+        "ชื่อ: " + name +
+        "\nจังหวัด: " + province +
+        "\n\nขั้นตอนถัดไปเราจะเชื่อมระบบฐานข้อมูลจริง"
+      );
+    }
+  </script>
+</body>
+</html>
