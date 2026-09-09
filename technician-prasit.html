@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>ช่างประสิทธิ์ การไฟฟ้า | ช่างใกล้ฉัน</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f6f8;
+  color:#172033;
+}
+
+header{
+  background:#101827;
+  color:white;
+  padding:16px 20px;
+}
+
+.header-inner{
+  max-width:900px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:bold;
+}
+
+.back{
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.container{
+  max-width:700px;
+  margin:25px auto;
+  padding:0 16px;
+}
+
+.profile-card{
+  background:white;
+  border-radius:18px;
+  padding:25px 20px;
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+
+.avatar{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:#ff7a00;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:38px;
+  font-weight:bold;
+  margin:0 auto 15px;
+}
+
+h1{
+  text-align:center;
+  margin:5px 0 10px;
+  font-size:25px;
+}
+
+.rating{
+  text-align:center;
+  color:#f59e0b;
+  font-weight:bold;
+  margin-bottom:20px;
+}
+
+.info{
+  display:grid;
+  gap:10px;
+  margin-bottom:22px;
+}
+
+.info div{
+  background:#f5f6f8;
+  padding:13px;
+  border-radius:10px;
+}
+
+h2{
+  font-size:19px;
+  margin-top:25px;
+}
+
+.services{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.service{
+  background:#fff1e6;
+  color:#d65f00;
+  padding:9px 12px;
+  border-radius:20px;
+  font-size:14px;
+}
+
+.buttons{
+  display:grid;
+  gap:10px;
+  margin-top:25px;
+}
+
+button{
+  border:0;
+  padding:15px;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.call{
+  background:#ff7a00;
+  color:white;
+}
+
+.line{
+  background:#06c755;
+  color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+
+    <div class="logo">
+      🔧 ช่างใกล้ฉัน
+    </div>
+
+    <a class="back" href="search.html">
+      ← กลับหน้าค้นหา
+    </a>
+
+  </div>
+</header>
+
+<div class="container">
+
+  <div class="profile-card">
+
+    <div class="avatar">
+      ป
+    </div>
+
+    <h1>
+      ช่างประสิทธิ์ การไฟฟ้า
+    </h1>
+
+    <div class="rating">
+      ⭐ 4.8 / 5.0
+      <br>
+      รีวิว 94 รายการ
+    </div>
+
+    <div class="info">
+
+      <div>
+        📍 <strong>พื้นที่:</strong>
+        กรุงเทพมหานคร
+      </div>
+
+      <div>
+        ⚡ <strong>ประเภท:</strong>
+        ช่างไฟ
+      </div>
+
+      <div>
+        🛠️ <strong>ประสบการณ์:</strong>
+        10 ปี
+      </div>
+
+      <div>
+        💰 <strong>ราคาเริ่มต้น:</strong>
+        400 บาท
+      </div>
+
+    </div>
+
+    <h2>
+      เกี่ยวกับช่าง
+    </h2>
+
+    <p>
+      รับงานซ่อมไฟฟ้าภายในบ้าน อาคาร และร้านค้า
+      ให้บริการตรวจสอบระบบไฟฟ้า แก้ไขไฟดับ
+      ติดตั้งอุปกรณ์ไฟฟ้า และงานระบบไฟฟ้าทั่วไป
+      มีประสบการณ์ทำงานมากกว่า 10 ปี
+    </p>
+
+    <h2>
+      บริการ
+    </h2>
+
+    <div class="services">
+
+      <div class="service">
+        ⚡ ซ่อมระบบไฟฟ้า
+      </div>
+
+      <div class="service">
+        💡 ติดตั้งไฟ
+      </div>
+
+      <div class="service">
+        🔌 ติดตั้งปลั๊ก
+      </div>
+
+      <div class="service">
+        🏠 ระบบไฟบ้าน
+      </div>
+
+      <div class="service">
+        🔧 แก้ไฟดับ
+      </div>
+
+    </div>
+
+    <div class="buttons">
+
+      <button
+        class="call"
+        onclick="window.location.href='tel:0810000000'">
+        📞 โทรหาช่าง
+      </button>
+
+      <button
+        class="line"
+        onclick="contactLine()">
+        💬 ติดต่อผ่าน LINE
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+function contactLine(){
+
+  alert(
+    "ติดต่อ ช่างประสิทธิ์ การไฟฟ้า\n\n" +
+    "ระบบ LINE จะเชื่อมต่อในขั้นตอนถัดไป"
+  );
+
+}
+
+</script>
+
+</body>
+</html>
