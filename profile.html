@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>โปรไฟล์ช่าง | ช่างใกล้ฉัน</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f5f6f8;
+    color:#172033;
+}
+
+header{
+    background:#111827;
+    color:white;
+    padding:16px 20px;
+}
+
+.header{
+    max-width:900px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.back{
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.container{
+    max-width:700px;
+    margin:25px auto;
+    padding:0 15px;
+}
+
+.profile{
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.avatar{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:#f97316;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
+    margin:0 auto 15px;
+}
+
+.name{
+    text-align:center;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.type{
+    text-align:center;
+    color:#f97316;
+    margin-top:8px;
+    font-weight:bold;
+}
+
+.rating{
+    text-align:center;
+    margin-top:12px;
+    font-size:18px;
+}
+
+.info{
+    margin-top:25px;
+    display:grid;
+    gap:12px;
+}
+
+.info div{
+    background:#f8fafc;
+    padding:14px;
+    border-radius:10px;
+}
+
+.description{
+    margin-top:25px;
+    line-height:1.7;
+}
+
+.services{
+    margin-top:20px;
+}
+
+.services ul{
+    padding-left:22px;
+    line-height:1.9;
+}
+
+.buttons{
+    display:flex;
+    gap:10px;
+    margin-top:25px;
+}
+
+button{
+    flex:1;
+    border:0;
+    border-radius:10px;
+    padding:14px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.call{
+    background:#16a34a;
+    color:white;
+}
+
+.line{
+    background:#06c755;
+    color:white;
+}
+
+.error{
+    background:white;
+    padding:30px;
+    text-align:center;
+    border-radius:15px;
+}
+
+@media(max-width:500px){
+
+    .profile{
+        padding:20px;
+    }
+
+    .name{
+        font-size:21px;
+    }
+
+    .buttons{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="header">
+
+        <div class="logo">
+            ช่างใกล้ฉัน
+        </div>
+
+        <a
+            href="search.html"
+            class="back">
+            ← กลับหน้าค้นหา
+        </a>
+
+    </div>
+
+</header>
+
+
+<div class="container">
+
+    <div
+        id="profile"
+        class="profile">
+
+        กำลังโหลดข้อมูลช่าง...
+
+    </div>
+
+</div>
+
+
+<script>
+
+let technicians = [];
+
+
+async function loadProfile(){
+
+    try{
+
+        const response =
+            await fetch("technicians.json");
+
+        technicians =
+            await response.json();
+
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const id =
+            params.get("id");
+
+
+        const technician =
+            technicians.find(
+                item => item.id === id
+            );
+
+
+        if(!technician){
+
+            document.getElementById("profile")
+                .innerHTML = `
+
+                    <div class="error">
+
+                        <h2>
+                            ไม่พบข้อมูลช่าง
+                        </h2>
+
+                        <p>
+                            อาจมีการลบหรือเปลี่ยนข้อมูลช่าง
+                        </p>
+
+                        <a href="search.html">
+                            ← กลับหน้าค้นหา
+                        </a>
+
+                    </div>
+
+                `;
+
+            return;
+
+        }
+
+
+        document.title =
+            technician.name +
+            " | ช่างใกล้ฉัน";
+
+
+        document.getElementById("profile")
+            .innerHTML = `
+
+                <div class="avatar">
+                    ${technician.icon}
+                </div>
+
+                <div class="name">
+                    ${technician.name}
+                </div>
+
+                <div class="type">
+                    ${technician.type}
+                </div>
+
+                <div class="rating">
+                    ⭐ ${technician.rating} / 5.0
+                    (${technician.reviews} รีวิว)
+                </div>
+
+
+                <div class="info">
+
+                    <div>
+                        📍 จังหวัด:
+                        <strong>
+                            ${technician.location}
+                        </strong>
+                    </div>
+
+                    <div>
+                        🛠️ ประสบการณ์:
+                        <strong>
+                            ${technician.experience} ปี
+                        </strong>
+                    </div>
+
+                    <div>
+                        💰 ราคาเริ่มต้น:
+                        <strong>
+                            ${technician.price} บาท
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="description">
+
+                    <h3>
+                        เกี่ยวกับช่าง
+                    </h3>
+
+                    <p>
+                        ช่างมืออาชีพพร้อมให้บริการ
+                        ในพื้นที่ ${technician.location}
+                        ให้บริการงาน${technician.type}
+                        ด้วยประสบการณ์
+                        ${technician.experience} ปี
+                    </p>
+
+                </div>
+
+
+                <div class="services">
+
+                    <h3>
+                        บริการ
+                    </h3>
+
+                    <ul>
+
+                        <li>
+                            ตรวจสอบและประเมินอาการ
+                        </li>
+
+                        <li>
+                            ซ่อมและแก้ไขงาน
+                        </li>
+
+                        <li>
+                            ให้คำแนะนำก่อนใช้บริการ
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <div class="buttons">
+
+                    <button
+                        class="call"
+                        onclick="callTechnician()">
+
+                        📞 โทรหาช่าง
+
+                    </button>
+
+                    <button
+                        class="line"
+                        onclick="contactLine()">
+
+                        LINE
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+        window.currentPhone =
+            technician.phone;
+
+
+    }catch(error){
+
+        console.error(error);
+
+        document.getElementById("profile")
+            .innerHTML = `
+
+                <div class="error">
+
+                    <h2>
+                        โหลดข้อมูลไม่สำเร็จ
+                    </h2>
+
+                    <p>
+                        กรุณาลองใหม่อีกครั้ง
+                    </p>
+
+                </div>
+
+            `;
+
+    }
+
+}
+
+
+function callTechnician(){
+
+    if(window.currentPhone){
+
+        window.location.href =
+            "tel:" +
+            window.currentPhone;
+
+    }
+
+}
+
+
+function contactLine(){
+
+    alert(
+        "ระบบ LINE กำลังพัฒนา\n\n" +
+        "ขั้นต่อไปเราจะเชื่อมต่อ LINE ของช่างจริง"
+    );
+
+}
+
+
+loadProfile();
+
+</script>
+
+</body>
+</html>
