@@ -207,6 +207,31 @@
           <option>ศรีสะเกษ</option>
           <option>อื่น ๆ</option>
         </select>
+       <div class="gps-box">
+  <strong>📍 ตำแหน่งร้าน / จุดให้บริการ</strong>
+
+  <p style="margin-top:8px;color:#6b7280;line-height:1.6;">
+    กรุณากดปุ่มด้านล่างเพื่อปักตำแหน่งจริง
+    ระบบจะใช้ตำแหน่งนี้ในการคำนวณระยะทางให้ลูกค้า
+  </p>
+
+  <button
+    type="button"
+    class="btn"
+    id="gpsButton"
+    onclick="getTechnicianLocation()"
+    style="margin-top:12px;"
+  >
+    📍 ปักตำแหน่งของฉัน
+  </button>
+
+  <div
+    id="gpsStatus"
+    style="margin-top:10px;text-align:center;"
+  >
+    ยังไม่ได้ปักตำแหน่ง
+  </div>
+</div>
         <label>
           ประสบการณ์
         </label>
@@ -275,6 +300,55 @@
     </div>
   </div>
   <script>
+   let latitude = null;
+let longitude = null;
+
+function getTechnicianLocation() {
+  const status = document.getElementById("gpsStatus");
+  const button = document.getElementById("gpsButton");
+
+  if (!navigator.geolocation) {
+    status.textContent = "❌ อุปกรณ์นี้ไม่รองรับ GPS";
+    return;
+  }
+
+  status.textContent = "📍 กำลังค้นหาตำแหน่ง...";
+  button.disabled = true;
+
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+      latitude = position.coords.latitude;
+      longitude = position.coords.longitude;
+
+      status.innerHTML =
+        "✅ ปักตำแหน่งสำเร็จ<br>" +
+        "ความแม่นยำประมาณ " +
+        Math.round(position.coords.accuracy) +
+        " เมตร";
+
+      button.disabled = false;
+    },
+    function(error) {
+      button.disabled = false;
+
+      if (error.code === 1) {
+        status.textContent =
+          "❌ กรุณาอนุญาตให้เว็บไซต์เข้าถึงตำแหน่ง";
+      } else if (error.code === 2) {
+        status.textContent =
+          "❌ ไม่สามารถระบุตำแหน่งได้";
+      } else {
+        status.textContent =
+          "❌ การค้นหาตำแหน่งหมดเวลา";
+      }
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 15000,
+      maximumAge: 0
+    }
+  );
+}
     function registerTechnician(event) {
       event.preventDefault();
       const name = document.getElementById("name").value.trim();
