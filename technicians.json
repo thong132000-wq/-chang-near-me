@@ -1,0 +1,38 @@
+[
+  {
+    "id": "somchai",
+    "name": "ช่างสมชาย เซอร์วิส",
+    "type": "ช่างแอร์",
+    "icon": "❄️",
+    "location": "นนทบุรี",
+    "rating": 4.9,
+    "reviews": 128,
+    "experience": 8,
+    "price": 500,
+    "phone": "0800000000"
+  },
+  {
+    "id": "prasit",
+    "name": "ช่างประสิทธิ์ การไฟฟ้า",
+    "type": "ช่างไฟ",
+    "icon": "⚡",
+    "location": "กรุงเทพมหานคร",
+    "rating": 4.8,
+    "reviews": 94,
+    "experience": 10,
+    "price": 400,
+    "phone": "0810000000"
+  },
+  {
+    "id": "wattana",
+    "name": "วัฒนาเซอร์วิส",
+    "type": "ช่างซ่อมรถ",
+    "icon": "🚗",
+    "location": "ปทุมธานี",
+    "rating": 5.0,
+    "reviews": 76,
+    "experience": 12,
+    "price": 600,
+    "phone": "0820000000"
+  }
+]
