@@ -435,19 +435,11 @@ function search(){
 
 function viewProfile(id){
 
-    if(id === "somchai"){
+    window.location.href =
+        "profile.html?id=" +
+        encodeURIComponent(id);
 
-        window.location.href =
-            "technician-somchai.html";
-
-    }
-
-    else if(id === "prasit"){
-
-        window.location.href =
-            "technician-prasit.html";
-
-    }
+}
 
     else if(id === "wattana"){
 
