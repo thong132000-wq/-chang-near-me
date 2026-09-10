@@ -392,9 +392,38 @@ onclick="contact('วัฒนาเซอร์วิส')">
 
 <script>
 
+let technicians = [];
+
+async function loadTechnicians() {
+
+    try {
+
+        const response =
+            await fetch("technicians.json");
+
+        technicians =
+            await response.json();
+
+        search();
+
+    } catch (error) {
+
+        console.error(
+            "ไม่สามารถโหลดข้อมูลช่างได้",
+            error
+        );
+
+    }
+
+}
+
+
 function search(){
 
-    const params = new URLSearchParams(window.location.search);
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
 
     const keyword =
         params.get("keyword") || "";
@@ -402,14 +431,18 @@ function search(){
     const location =
         params.get("location") || "";
 
-    document.getElementById("keyword").value = keyword;
+    document.getElementById("keyword").value =
+        keyword;
 
-    document.getElementById("location").value = location;
+    document.getElementById("location").value =
+        location;
+
 
     const cards =
         document.querySelectorAll(".technician");
 
     let found = 0;
+
 
     cards.forEach(card => {
 
@@ -419,15 +452,26 @@ function search(){
         const cardLocation =
             card.dataset.location;
 
+
         const keywordMatch =
-            !keyword || type.includes(keyword.toLowerCase());
+            !keyword ||
+            type.includes(
+                keyword.toLowerCase()
+            );
+
 
         const locationMatch =
-            !location || cardLocation === location;
+            !location ||
+            cardLocation === location;
 
-        if(keywordMatch && locationMatch){
+
+        if (
+            keywordMatch &&
+            locationMatch
+        ){
 
             card.style.display = "block";
+
             found++;
 
         }else{
@@ -438,15 +482,19 @@ function search(){
 
     });
 
+
     document.getElementById("empty").style.display =
-        found === 0 ? "block" : "none";
+        found === 0
+            ? "block"
+            : "none";
 
 }
 
 
 function viewProfile(name){
 
-    window.location.href = "technician-profile.html";
+    window.location.href =
+        "technician-profile.html";
 
 }
 
@@ -461,6 +509,9 @@ function contact(name){
     );
 
 }
+
+
+loadTechnicians();
 
 </script>
 
