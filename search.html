@@ -69,7 +69,7 @@ h1{
     display:grid;
     grid-template-columns:1fr 1fr auto;
     gap:12px;
-    margin-bottom:30px;
+    margin-bottom:15px;
 }
 
 input,
@@ -94,6 +94,24 @@ button{
 
 button:hover{
     opacity:.9;
+}
+
+.gps-box{
+    background:white;
+    padding:18px 20px;
+    border-radius:16px;
+    box-shadow:0 4px 18px rgba(0,0,0,.07);
+    margin-bottom:30px;
+}
+
+.gps-button{
+    background:#16a34a;
+}
+
+.gps-status{
+    margin-top:10px;
+    color:#667085;
+    font-size:14px;
 }
 
 .results-title{
@@ -150,6 +168,13 @@ button:hover{
     font-weight:bold;
 }
 
+.distance{
+    margin-top:8px;
+    color:#16a34a;
+    font-weight:bold;
+    font-size:14px;
+}
+
 .card-buttons{
     display:flex;
     gap:8px;
@@ -172,6 +197,7 @@ button:hover{
     text-align:center;
     border-radius:15px;
     color:#667085;
+    grid-column:1/-1;
 }
 
 @media(max-width:800px){
@@ -217,7 +243,7 @@ button:hover{
 <h1>ค้นหาช่าง</h1>
 
 <p class="subtitle">
-ค้นหาช่างที่คุณต้องการในพื้นที่ใกล้บ้าน
+ค้นหาช่างที่คุณต้องการ หรือค้นหาช่างที่อยู่ใกล้คุณ
 </p>
 
 
@@ -231,15 +257,32 @@ placeholder="เช่น ช่างแอร์ ช่างไฟ ช่า�
 
 <select id="location">
 
-<option value="">ทุกพื้นที่</option>
-<option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
-<option value="นนทบุรี">นนทบุรี</option>
-<option value="ปทุมธานี">ปทุมธานี</option>
-<option value="สมุทรปราการ">สมุทรปราการ</option>
+<option value="">ทุกจังหวัด</option>
 
 </select>
 
-<button onclick="search()">🔎 ค้นหาช่าง</button>
+<button onclick="search()">
+🔎 ค้นหาช่าง
+</button>
+
+</div>
+
+
+<div class="gps-box">
+
+<button
+class="gps-button"
+onclick="getMyLocation()"
+>
+📍 ใช้ตำแหน่งของฉัน
+</button>
+
+<div
+class="gps-status"
+id="gpsStatus"
+>
+ยังไม่ได้เปิดใช้งานตำแหน่ง GPS
+</div>
 
 </div>
 
@@ -251,213 +294,691 @@ placeholder="เช่น ช่างแอร์ ช่างไฟ ช่า�
 
 <div class="cards" id="cards">
 
-<div class="empty" id="empty">
+</div>
 
+<div
+class="empty"
+id="empty"
+>
 ไม่พบช่างที่ตรงกับการค้นหา
-
-</div>
-
 </div>
 
 
+</div>
 
 
 <script>
 
 let technicians = [];
 
-async function loadTechnicians() {
+let userLatitude = null;
+let userLongitude = null;
 
-    try {
+
+/* =========================
+   โหลดข้อมูลช่าง
+========================= */
+
+async function loadTechnicians(){
+
+    try{
 
         const response =
             await fetch("technicians.json");
 
+        if(!response.ok){
+
+            throw new Error(
+                "ไม่พบ technicians.json"
+            );
+
+        }
+
         technicians =
             await response.json();
 
+        createProvinceList();
+
         renderTechnicians();
 
-    } catch (error) {
+    }catch(error){
 
         console.error(
             "ไม่สามารถโหลดข้อมูลช่างได้",
             error
         );
 
+        document.getElementById(
+            "gpsStatus"
+        ).textContent =
+            "❌ ไม่สามารถโหลดข้อมูลช่างได้";
+
     }
 
 }
 
 
-function renderTechnicians() {
+/* =========================
+   สร้างรายชื่อจังหวัด
+========================= */
+
+function createProvinceList(){
+
+    const select =
+        document.getElementById(
+            "location"
+        );
+
+    const provinces =
+        [
+            ...new Set(
+                technicians
+                .map(
+                    technician =>
+                        technician.location
+                )
+                .filter(Boolean)
+            )
+        ].sort();
+
+    provinces.forEach(
+        province => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                province;
+
+            option.textContent =
+                province;
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================
+   แสดงช่าง
+========================= */
+
+function renderTechnicians(){
 
     const cards =
-        document.getElementById("cards");
+        document.getElementById(
+            "cards"
+        );
 
     cards.innerHTML = "";
 
-    technicians.forEach(technician => {
+    technicians.forEach(
+        technician => {
 
-        const card =
-            document.createElement("div");
+            const card =
+                document.createElement(
+                    "div"
+                );
 
-        card.className =
-            "card technician";
+            card.className =
+                "card technician";
 
-        card.dataset.type =
-            technician.type;
+            card.dataset.type =
+                technician.type || "";
 
-        card.dataset.location =
-            technician.location;
+            card.dataset.name =
+                technician.name || "";
 
-        card.innerHTML = `
+            card.dataset.location =
+                technician.location || "";
 
-            <div class="avatar">
-                ${technician.icon}
-            </div>
+            card.dataset.latitude =
+                technician.latitude ?? "";
 
-            <div class="name">
-                ${technician.name}
-            </div>
+            card.dataset.longitude =
+                technician.longitude ?? "";
 
-            <div class="type">
-                ${technician.type}
-            </div>
 
-            <div class="info">
-                ⭐ ${technician.rating}
-                (${technician.reviews} รีวิว)<br>
+            card.innerHTML = `
 
-                📍 ${technician.location}<br>
+                <div class="avatar">
+                    ${technician.icon || "🔧"}
+                </div>
 
-                🛠️ ประสบการณ์
-                ${technician.experience} ปี
-            </div>
+                <div class="name">
+                    ${technician.name || "ช่างไม่ระบุชื่อ"}
+                </div>
 
-            <div class="price">
-                เริ่มต้น ${technician.price} บาท
-            </div>
+                <div class="type">
+                    ${technician.type || "ช่างทั่วไป"}
+                </div>
 
-            <div class="card-buttons">
+                <div class="info">
 
-                <button
-                    class="profile"
-                    onclick="viewProfile('${technician.id}')">
-                    ดูโปรไฟล์
-                </button>
+                    ⭐ ${technician.rating ?? "-"}
+                    (${technician.reviews ?? 0} รีวิว)
 
-                <button
-                    onclick="contact('${technician.name}')">
-                    ติดต่อ
-                </button>
+                    <br>
 
-            </div>
+                    📍 ${technician.location || "ไม่ระบุพื้นที่"}
 
-        `;
+                    <br>
 
-        cards.appendChild(card);
+                    🛠️ ประสบการณ์
+                    ${technician.experience ?? "-"} ปี
 
-    });
+                </div>
+
+                <div class="price">
+                    เริ่มต้น
+                    ${technician.price ?? "-"}
+                    บาท
+                </div>
+
+                <div class="distance"></div>
+
+                <div class="card-buttons">
+
+                    <button
+                        class="profile"
+                        onclick="viewProfile('${technician.id}')"
+                    >
+                        ดูโปรไฟล์
+                    </button>
+
+                    <button
+                        onclick="contact('${technician.name || ""}')"
+                    >
+                        ติดต่อ
+                    </button>
+
+                </div>
+
+            `;
+
+            cards.appendChild(
+                card
+            );
+
+        }
+    );
 
     search();
 
 }
 
 
+/* =========================
+   ค้นหาช่าง
+========================= */
+
 function search(){
 
     const keyword =
-        document.getElementById("keyword")
+        document.getElementById(
+            "keyword"
+        )
         .value
         .trim()
         .toLowerCase();
 
+
     const location =
-        document.getElementById("location")
-        .value;
+        document.getElementById(
+            "location"
+        ).value;
 
 
     const cards =
-        document.querySelectorAll(".technician");
-
-    let found = 0;
-
-
-    cards.forEach(card => {
-
-        const type =
-            card.dataset.type
-            .toLowerCase();
-
-        const cardLocation =
-            card.dataset.location;
+        [
+            ...document.querySelectorAll(
+                ".technician"
+            )
+        ];
 
 
-        const keywordMatch =
-            !keyword ||
-            type.includes(keyword);
+    let results = [];
 
 
-        const locationMatch =
-            !location ||
-            cardLocation === location;
+    cards.forEach(
+        card => {
+
+            const type =
+                card.dataset.type
+                .toLowerCase();
 
 
-        if (
-            keywordMatch &&
-            locationMatch
-        ){
+            const name =
+                card.dataset.name
+                .toLowerCase();
+
+
+            const cardLocation =
+                card.dataset.location;
+
+
+            const keywordMatch =
+
+                !keyword ||
+
+                type.includes(keyword) ||
+
+                name.includes(keyword) ||
+
+                cardLocation
+                    .toLowerCase()
+                    .includes(keyword);
+
+
+            const locationMatch =
+
+                !location ||
+
+                cardLocation === location;
+
+
+            if(
+                keywordMatch &&
+                locationMatch
+            ){
+
+                results.push(card);
+
+            }else{
+
+                card.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+
+    /* =========================
+       ถ้าเปิด GPS
+       เรียงจากใกล้ที่สุด
+    ========================= */
+
+    if(
+        userLatitude !== null &&
+        userLongitude !== null
+    ){
+
+        results.forEach(
+            card => {
+
+                const lat =
+                    parseFloat(
+                        card.dataset.latitude
+                    );
+
+                const lon =
+                    parseFloat(
+                        card.dataset.longitude
+                    );
+
+
+                if(
+                    Number.isFinite(lat) &&
+                    Number.isFinite(lon)
+                ){
+
+                    const distance =
+                        calculateDistance(
+                            userLatitude,
+                            userLongitude,
+                            lat,
+                            lon
+                        );
+
+
+                    card.dataset.distance =
+                        distance;
+
+
+                    card.querySelector(
+                        ".distance"
+                    ).textContent =
+
+                        "📍 ห่างจากคุณ " +
+                        distance.toFixed(1) +
+                        " กม.";
+
+                }else{
+
+                    card.dataset.distance =
+                        "999999";
+
+
+                    card.querySelector(
+                        ".distance"
+                    ).textContent =
+
+                        "📍 ยังไม่มีพิกัดช่าง";
+
+                }
+
+            }
+        );
+
+
+        results.sort(
+            (a,b) =>
+
+                parseFloat(
+                    a.dataset.distance
+                )
+
+                -
+
+                parseFloat(
+                    b.dataset.distance
+                )
+        );
+
+    }
+
+
+    /* =========================
+       ถ้ายังไม่เปิด GPS
+       เรียงตามคะแนน
+    ========================= */
+
+    else{
+
+        results.sort(
+            (a,b) => {
+
+                const ratingA =
+                    getRating(a);
+
+                const ratingB =
+                    getRating(b);
+
+                return ratingB - ratingA;
+
+            }
+        );
+
+    }
+
+
+    const cardsContainer =
+        document.getElementById(
+            "cards"
+        );
+
+
+    results.forEach(
+        card => {
 
             card.style.display =
                 "block";
 
-            found++;
-
-        }else{
-
-            card.style.display =
-                "none";
+            cardsContainer.appendChild(
+                card
+            );
 
         }
-
-    });
-
-
-    document.getElementById("empty")
-        .style.display =
-            found === 0
-                ? "block"
-                : "none";
-
-}
+    );
 
 
-function viewProfile(id){
+    document.getElementById(
+        "empty"
+    ).style.display =
 
-    window.location.href =
-        "profile.html?id=" +
-        encodeURIComponent(id);
+        results.length === 0
+            ? "block"
+            : "none";
 
 }
 
 
+/* =========================
+   อ่านคะแนน
+========================= */
+
+function getRating(card){
+
+    const text =
+        card.querySelector(
+            ".info"
+        ).textContent;
 
 
-function contact(name){
+    const match =
+        text.match(
+            /⭐\s*([\d.]+)/
+        );
 
-    alert(
-        "ติดต่อ " +
-        name +
-        "\n\nระบบโทร / LINE / แชต\n" +
-        "จะเชื่อมต่อในขั้นตอนถัดไป"
+
+    return match
+        ? parseFloat(match[1])
+        : 0;
+
+}
+
+
+/* =========================
+   GPS
+========================= */
+
+function getMyLocation(){
+
+    const status =
+        document.getElementById(
+            "gpsStatus"
+        );
+
+
+    if(
+        !navigator.geolocation
+    ){
+
+        status.textContent =
+            "❌ อุปกรณ์นี้ไม่รองรับ GPS";
+
+        return;
+
+    }
+
+
+    status.textContent =
+        "📍 กำลังค้นหาตำแหน่งของคุณ...";
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            userLatitude =
+                position.coords.latitude;
+
+            userLongitude =
+                position.coords.longitude;
+
+
+            status.textContent =
+
+                "✅ เปิดใช้งานตำแหน่งแล้ว " +
+
+                "(ความแม่นยำประมาณ " +
+
+                Math.round(
+                    position.coords.accuracy
+                ) +
+
+                " เมตร)";
+
+
+            search();
+
+        },
+
+
+        function(error){
+
+            if(
+                error.code === 1
+            ){
+
+                status.textContent =
+                    "❌ คุณไม่อนุญาตให้เว็บไซต์ใช้ตำแหน่ง";
+
+            }
+
+            else if(
+                error.code === 2
+            ){
+
+                status.textContent =
+                    "❌ ไม่สามารถระบุตำแหน่งได้";
+
+            }
+
+            else{
+
+                status.textContent =
+                    "❌ การค้นหาตำแหน่งหมดเวลา";
+
+            }
+
+        },
+
+
+        {
+            enableHighAccuracy:true,
+            timeout:10000,
+            maximumAge:0
+        }
+
     );
 
 }
 
 
+/* =========================
+   คำนวณระยะทาง
+========================= */
+
+function calculateDistance(
+    lat1,
+    lon1,
+    lat2,
+    lon2
+){
+
+    const R = 6371;
+
+
+    const dLat =
+        toRadians(
+            lat2 - lat1
+        );
+
+
+    const dLon =
+        toRadians(
+            lon2 - lon1
+        );
+
+
+    const a =
+
+        Math.sin(dLat / 2) *
+        Math.sin(dLat / 2)
+
+        +
+
+        Math.cos(
+            toRadians(lat1)
+        )
+
+        *
+
+        Math.cos(
+            toRadians(lat2)
+        )
+
+        *
+
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+
+
+    const c =
+
+        2 *
+
+        Math.atan2(
+            Math.sqrt(a),
+            Math.sqrt(1 - a)
+        );
+
+
+    return R * c;
+
+}
+
+
+function toRadians(degrees){
+
+    return degrees *
+        Math.PI /
+        180;
+
+}
+
+
+/* =========================
+   ดูโปรไฟล์
+========================= */
+
+function viewProfile(id){
+
+    window.location.href =
+
+        "profile.html?id=" +
+
+        encodeURIComponent(id);
+
+}
+
+
+/* =========================
+   ระบบติดต่อเดิม
+========================= */
+
+function contact(name){
+
+    alert(
+
+        "ติดต่อ " +
+        name +
+
+        "\n\nระบบโทร / LINE / แชต\n" +
+
+        "จะเชื่อมต่อในขั้นตอนถัดไป"
+
+    );
+
+}
+
+
+/* =========================
+   เริ่มต้น
+========================= */
+
 loadTechnicians();
 
 </script>
+
 </body>
 </html>
