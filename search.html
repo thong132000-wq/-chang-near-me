@@ -251,134 +251,6 @@ placeholder="เช่น ช่างแอร์ ช่างไฟ ช่า�
 
 <div class="cards" id="cards">
 
-
-<div class="card technician"
-data-type="ช่างแอร์"
-data-location="นนทบุรี">
-
-<div class="avatar">❄️</div>
-
-
-
-<div class="type">
-ช่างแอร์
-</div>
-
-<div class="info">
-⭐ 4.9 (128 รีวิว)<br>
-📍 นนทบุรี<br>
-🛠️ ประสบการณ์ 8 ปี
-</div>
-
-<div class="price">
-เริ่มต้น 500 บาท
-</div>
-
-<div class="card-buttons">
-
-<button
-class="profile"
-onclick="viewProfile('ช่างสมชาย เซอร์วิส')">
-ดูโปรไฟล์
-</button>
-
-<button
-onclick="contact('ช่างสมชาย เซอร์วิส')">
-ติดต่อ
-</button>
-
-</div>
-
-</div>
-
-
-<div class="card technician"
-data-type="ช่างไฟ"
-data-location="กรุงเทพมหานคร">
-
-<div class="avatar">⚡</div>
-
-<div class="name">
-ช่างประสิทธิ์ การไฟฟ้า
-</div>
-
-<div class="type">
-ช่างไฟ
-</div>
-
-<div class="info">
-⭐ 4.8 (94 รีวิว)<br>
-📍 กรุงเทพมหานคร<br>
-🛠️ ประสบการณ์ 10 ปี
-</div>
-
-<div class="price">
-เริ่มต้น 400 บาท
-</div>
-
-<div class="card-buttons">
-
-<button
-class="profile"
-onclick="window.location.href='technician-prasit.html'">
-ดูโปรไฟล์
-</button>
-
-<button
-onclick="contact('ช่างประสิทธิ์ การไฟฟ้า')">
-ติดต่อ
-</button>
-
-</div>
-
-</div>
-
-
-<div class="card technician"
-data-type="ช่างซ่อมรถ"
-data-location="ปทุมธานี">
-
-<div class="avatar">🚗</div>
-
-<div class="name">
-วัฒนาเซอร์วิส
-</div>
-
-<div class="type">
-ช่างซ่อมรถ
-</div>
-
-<div class="info">
-⭐ 5.0 (76 รีวิว)<br>
-📍 ปทุมธานี<br>
-🛠️ ประสบการณ์ 12 ปี
-</div>
-
-<div class="price">
-เริ่มต้น 600 บาท
-</div>
-
-<div class="card-buttons">
-
-<button
-class="profile"
-onclick="window.location.href='technician-wattana.html'">
-ดูโปรไฟล์
-</button>
-
-<button
-onclick="contact('วัฒนาเซอร์วิส')">
-ติดต่อ
-</button>
-
-</div>
-
-</div>
-
-
-</div>
-
-
 <div class="empty" id="empty">
 
 ไม่พบช่างที่ตรงกับการค้นหา
@@ -404,7 +276,7 @@ async function loadTechnicians() {
         technicians =
             await response.json();
 
-        search();
+        renderTechnicians();
 
     } catch (error) {
 
@@ -418,24 +290,92 @@ async function loadTechnicians() {
 }
 
 
+function renderTechnicians() {
+
+    const cards =
+        document.getElementById("cards");
+
+    cards.innerHTML = "";
+
+    technicians.forEach(technician => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "card technician";
+
+        card.dataset.type =
+            technician.type;
+
+        card.dataset.location =
+            technician.location;
+
+        card.innerHTML = `
+
+            <div class="avatar">
+                ${technician.icon}
+            </div>
+
+            <div class="name">
+                ${technician.name}
+            </div>
+
+            <div class="type">
+                ${technician.type}
+            </div>
+
+            <div class="info">
+                ⭐ ${technician.rating}
+                (${technician.reviews} รีวิว)<br>
+
+                📍 ${technician.location}<br>
+
+                🛠️ ประสบการณ์
+                ${technician.experience} ปี
+            </div>
+
+            <div class="price">
+                เริ่มต้น ${technician.price} บาท
+            </div>
+
+            <div class="card-buttons">
+
+                <button
+                    class="profile"
+                    onclick="viewProfile('${technician.id}')">
+                    ดูโปรไฟล์
+                </button>
+
+                <button
+                    onclick="contact('${technician.name}')">
+                    ติดต่อ
+                </button>
+
+            </div>
+
+        `;
+
+        cards.appendChild(card);
+
+    });
+
+    search();
+
+}
+
+
 function search(){
 
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
     const keyword =
-        params.get("keyword") || "";
+        document.getElementById("keyword")
+        .value
+        .trim()
+        .toLowerCase();
 
     const location =
-        params.get("location") || "";
-
-    document.getElementById("keyword").value =
-        keyword;
-
-    document.getElementById("location").value =
-        location;
+        document.getElementById("location")
+        .value;
 
 
     const cards =
@@ -447,7 +387,8 @@ function search(){
     cards.forEach(card => {
 
         const type =
-            card.dataset.type.toLowerCase();
+            card.dataset.type
+            .toLowerCase();
 
         const cardLocation =
             card.dataset.location;
@@ -455,9 +396,7 @@ function search(){
 
         const keywordMatch =
             !keyword ||
-            type.includes(
-                keyword.toLowerCase()
-            );
+            type.includes(keyword);
 
 
         const locationMatch =
@@ -470,31 +409,52 @@ function search(){
             locationMatch
         ){
 
-            card.style.display = "block";
+            card.style.display =
+                "block";
 
             found++;
 
         }else{
 
-            card.style.display = "none";
+            card.style.display =
+                "none";
 
         }
 
     });
 
 
-    document.getElementById("empty").style.display =
-        found === 0
-            ? "block"
-            : "none";
+    document.getElementById("empty")
+        .style.display =
+            found === 0
+                ? "block"
+                : "none";
 
 }
 
 
-function viewProfile(name){
+function viewProfile(id){
 
-    window.location.href =
-        "technician-profile.html";
+    if(id === "somchai"){
+
+        window.location.href =
+            "technician-somchai.html";
+
+    }
+
+    else if(id === "prasit"){
+
+        window.location.href =
+            "technician-prasit.html";
+
+    }
+
+    else if(id === "wattana"){
+
+        window.location.href =
+            "technician-wattana.html";
+
+    }
 
 }
 
@@ -514,6 +474,5 @@ function contact(name){
 loadTechnicians();
 
 </script>
-
 </body>
 </html>
