@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ลงทะเบียนช่าง | BP AUTO</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f5f7fa;
+    color:#172033;
+}
+
+header{
+    background:#111827;
+    color:white;
+    padding:16px 20px;
+}
+
+.nav{
+    max-width:700px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:21px;
+    font-weight:bold;
+}
+
+.back{
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.container{
+    max-width:700px;
+    margin:30px auto;
+    padding:0 20px;
+}
+
+h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#667085;
+    margin-bottom:25px;
+}
+
+.form-box{
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 4px 18px rgba(0,0,0,.07);
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin:15px 0 7px;
+}
+
+input,
+select{
+    width:100%;
+    padding:14px;
+    border:1px solid #d0d5dd;
+    border-radius:10px;
+    font-size:15px;
+}
+
+.gps-box{
+    margin-top:20px;
+    padding:18px;
+    background:#f8fafc;
+    border-radius:12px;
+}
+
+.gps-button{
+    width:100%;
+    background:#16a34a;
+}
+
+.gps-status{
+    margin-top:10px;
+    color:#667085;
+    font-size:14px;
+    line-height:1.6;
+}
+
+.submit-button{
+    width:100%;
+    margin-top:20px;
+    background:#f97316;
+}
+
+.success{
+    display:none;
+    margin-top:20px;
+    padding:16px;
+    background:#ecfdf3;
+    color:#166534;
+    border-radius:12px;
+    line-height:1.7;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="nav">
+
+<div class="logo">
+🔧 BP AUTO
+</div>
+
+<a href="index.html" class="back">
+← กลับหน้าแรก
+</a>
+
+</div>
+
+</header>
+
+
+<div class="container">
+
+<h1>ลงทะเบียนช่าง</h1>
+
+<p class="subtitle">
+สมัครเป็นช่างกับ BP AUTO และปักตำแหน่งเพื่อให้ลูกค้าค้นหาคุณได้
+</p>
+
+
+<div class="form-box">
+
+<label>
+ชื่อร้าน / ชื่อช่าง
+</label>
+
+<input
+type="text"
+id="name"
+placeholder="เช่น ช่างสมชาย เซอร์วิส"
+>
+
+
+<label>
+ประเภทช่าง
+</label>
+
+<select id="type">
+
+<option value="">
+เลือกประเภทช่าง
+</option>
+
+<option>ช่างแอร์</option>
+<option>ช่างไฟ</option>
+<option>ช่างประปา</option>
+<option>ช่างซ่อมรถ</option>
+<option>ช่างก่อสร้าง</option>
+<option>ช่างเครื่องใช้ไฟฟ้า</option>
+<option>ช่างอื่น ๆ</option>
+
+</select>
+
+
+<label>
+จังหวัด
+</label>
+
+<input
+type="text"
+id="location"
+placeholder="เช่น นนทบุรี"
+>
+
+
+<label>
+เบอร์โทรศัพท์
+</label>
+
+<input
+type="tel"
+id="phone"
+placeholder="เช่น 0800000000"
+>
+
+
+<label>
+LINE
+</label>
+
+<input
+type="text"
+id="line"
+placeholder="ลิงก์ LINE หรือ LINE ID"
+>
+
+
+<div class="gps-box">
+
+<strong>📍 ตำแหน่งช่าง</strong>
+
+<button
+type="button"
+class="gps-button"
+onclick="getTechnicianLocation()"
+style="margin-top:12px;"
+>
+📍 ปักตำแหน่งของฉัน
+</button>
+
+<div
+class="gps-status"
+id="gpsStatus"
+>
+ยังไม่ได้ปักตำแหน่ง
+</div>
+
+</div>
+
+
+<button
+type="button"
+class="submit-button"
+onclick="registerTechnician()"
+>
+ลงทะเบียนช่าง
+</button>
+
+
+<div
+class="success"
+id="success"
+></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+let latitude = null;
+let longitude = null;
+
+
+/* =========================
+   ปักตำแหน่งช่าง
+========================= */
+
+function getTechnicianLocation(){
+
+    const status =
+        document.getElementById(
+            "gpsStatus"
+        );
+
+
+    if(!navigator.geolocation){
+
+        status.textContent =
+            "❌ อุปกรณ์นี้ไม่รองรับ GPS";
+
+        return;
+
+    }
+
+
+    status.textContent =
+        "📍 กำลังค้นหาตำแหน่ง..." ;
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            latitude =
+                position.coords.latitude;
+
+            longitude =
+                position.coords.longitude;
+
+
+            status.innerHTML =
+
+                "✅ ปักตำแหน่งสำเร็จ<br>" +
+
+                "Latitude: " +
+                latitude.toFixed(6) +
+
+                "<br>" +
+
+                "Longitude: " +
+                longitude.toFixed(6);
+
+        },
+
+
+        function(error){
+
+            if(error.code === 1){
+
+                status.textContent =
+                    "❌ กรุณาอนุญาตให้เว็บไซต์เข้าถึงตำแหน่ง";
+
+            }
+
+            else if(error.code === 2){
+
+                status.textContent =
+                    "❌ ไม่สามารถระบุตำแหน่งได้";
+
+            }
+
+            else{
+
+                status.textContent =
+                    "❌ การค้นหาตำแหน่งหมดเวลา";
+
+            }
+
+        },
+
+
+        {
+            enableHighAccuracy:true,
+            timeout:15000,
+            maximumAge:0
+        }
+
+    );
+
+}
+
+
+/* =========================
+   ลงทะเบียน
+========================= */
+
+function registerTechnician(){
+
+    const name =
+        document.getElementById(
+            "name"
+        ).value.trim();
+
+
+    const type =
+        document.getElementById(
+            "type"
+        ).value;
+
+
+    const location =
+        document.getElementById(
+            "location"
+        ).value.trim();
+
+
+    const phone =
+        document.getElementById(
+            "phone"
+        ).value.trim();
+
+
+    const line =
+        document.getElementById(
+            "line"
+        ).value.trim();
+
+
+    const success =
+        document.getElementById(
+            "success"
+        );
+
+
+    if(!name){
+
+        alert("กรุณากรอกชื่อร้าน / ชื่อช่าง");
+
+        return;
+
+    }
+
+
+    if(!type){
+
+        alert("กรุณาเลือกประเภทช่าง");
+
+        return;
+
+    }
+
+
+    if(!location){
+
+        alert("กรุณากรอกจังหวัด");
+
+        return;
+
+    }
+
+
+    if(!phone){
+
+        alert("กรุณากรอกเบอร์โทรศัพท์");
+
+        return;
+
+    }
+
+
+    if(
+        latitude === null ||
+        longitude === null
+    ){
+
+        alert(
+            "กรุณากด 📍 ปักตำแหน่งของฉัน ก่อนลงทะเบียน"
+        );
+
+        return;
+
+    }
+
+
+    const technician = {
+
+        id:
+            "tech-" +
+            Date.now(),
+
+        name:name,
+
+        type:type,
+
+        icon:
+            getIcon(type),
+
+        location:location,
+
+        latitude:latitude,
+
+        longitude:longitude,
+
+        rating:0,
+
+        reviews:0,
+
+        experience:0,
+
+        price:0,
+
+        phone:phone,
+
+        line:line
+
+    };
+
+
+    console.log(
+        "ข้อมูลช่าง:",
+        technician
+    );
+
+
+    success.style.display =
+        "block";
+
+
+    success.innerHTML =
+
+        "✅ ลงทะเบียนข้อมูลสำเร็จ<br><br>" +
+
+        "ชื่อ: " +
+        technician.name +
+
+        "<br>" +
+
+        "ประเภท: " +
+        technician.type +
+
+        "<br>" +
+
+        "จังหวัด: " +
+        technician.location +
+
+        "<br>" +
+
+        "📍 พิกัด: " +
+
+        technician.latitude.toFixed(6) +
+
+        ", " +
+
+        technician.longitude.toFixed(6) +
+
+        "<br><br>" +
+
+        "ข้อมูลถูกเตรียมไว้สำหรับเชื่อมเข้าระบบฐานข้อมูล";
+
+}
+
+
+/* =========================
+   ไอคอนตามประเภท
+========================= */
+
+function getIcon(type){
+
+    if(type === "ช่างแอร์")
+        return "❄️";
+
+    if(type === "ช่างไฟ")
+        return "⚡";
+
+    if(type === "ช่างประปา")
+        return "🔧";
+
+    if(type === "ช่างซ่อมรถ")
+        return "🚗";
+
+    if(type === "ช่างก่อสร้าง")
+        return "🏗️";
+
+    if(type === "ช่างเครื่องใช้ไฟฟ้า")
+        return "🔌";
+
+    return "🛠️";
+
+}
+
+</script>
+
+</body>
+</html>
