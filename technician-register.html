@@ -7,274 +7,285 @@
 <title>ลงทะเบียนช่าง | BP AUTO</title>
 
 <style>
-
 *{
     box-sizing:border-box;
-    margin:0;
-    padding:0;
 }
 
 body{
+    margin:0;
     font-family:Arial,sans-serif;
-    background:#f5f7fa;
-    color:#172033;
+    background:#f5f6f8;
+    color:#222;
 }
 
 header{
-    background:#111827;
+    background:#111;
     color:white;
-    padding:16px 20px;
+    padding:18px;
+    text-align:center;
 }
 
-.nav{
-    max-width:700px;
-    margin:auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.logo{
-    font-size:21px;
-    font-weight:bold;
-}
-
-.back{
-    color:white;
-    text-decoration:none;
-    font-size:14px;
+header h1{
+    margin:0;
+    font-size:24px;
 }
 
 .container{
-    max-width:700px;
-    margin:30px auto;
-    padding:0 20px;
+    max-width:600px;
+    margin:25px auto;
+    padding:20px;
 }
 
-h1{
-    font-size:28px;
-    margin-bottom:8px;
-}
-
-.subtitle{
-    color:#667085;
-    margin-bottom:25px;
-}
-
-.form-box{
+.card{
     background:white;
-    padding:22px;
-    border-radius:16px;
-    box-shadow:0 4px 18px rgba(0,0,0,.07);
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+h2{
+    margin-top:0;
 }
 
 label{
     display:block;
+    margin-top:16px;
+    margin-bottom:7px;
     font-weight:bold;
-    margin:15px 0 7px;
 }
 
 input,
 select{
     width:100%;
-    padding:14px;
-    border:1px solid #d0d5dd;
-    border-radius:10px;
-    font-size:15px;
+    padding:13px;
+    border:1px solid #ddd;
+    border-radius:9px;
+    font-size:16px;
 }
 
 .gps-box{
     margin-top:20px;
-    padding:18px;
-    background:#f8fafc;
-    border-radius:12px;
+    padding:15px;
+    background:#f1f7ff;
+    border-radius:10px;
 }
 
 .gps-button{
     width:100%;
-    background:#16a34a;
-}
-
-.gps-status{
+    padding:14px;
     margin-top:10px;
-    color:#667085;
-    font-size:14px;
-    line-height:1.6;
+    border:none;
+    border-radius:9px;
+    background:#1976d2;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
 }
 
 .submit-button{
     width:100%;
-    margin-top:20px;
-    background:#f97316;
+    padding:15px;
+    margin-top:25px;
+    border:none;
+    border-radius:10px;
+    background:#111;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.submit-button:disabled{
+    background:#888;
+}
+
+#gpsStatus{
+    margin-top:12px;
+    line-height:1.6;
 }
 
 .success{
     display:none;
     margin-top:20px;
-    padding:16px;
-    background:#ecfdf3;
-    color:#166534;
-    border-radius:12px;
+    padding:18px;
+    background:#e9f8ee;
+    border-radius:10px;
     line-height:1.7;
 }
 
+.error-box{
+    display:none;
+    margin-top:20px;
+    padding:18px;
+    background:#ffecec;
+    color:#b00020;
+    border-radius:10px;
+    line-height:1.6;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-
-<div class="nav">
-
-<div class="logo">
-🔧 BP AUTO
-</div>
-
-<a href="index.html" class="back">
-← กลับหน้าแรก
-</a>
-
-</div>
-
+    <h1>🔧 BP AUTO</h1>
 </header>
-
 
 <div class="container">
 
-<h1>ลงทะเบียนช่าง</h1>
+<div class="card">
 
-<p class="subtitle">
-สมัครเป็นช่างกับ BP AUTO และปักตำแหน่งเพื่อให้ลูกค้าค้นหาคุณได้
+<h2>ลงทะเบียนช่าง</h2>
+
+<p>
+สมัครเป็นช่างในระบบ BP AUTO
+เพื่อให้ลูกค้าสามารถค้นหาช่างใกล้ฉันได้
 </p>
 
-
-<div class="form-box">
-
-<label>
-ชื่อร้าน / ชื่อช่าง
-</label>
+<label>ชื่อร้าน / ชื่อช่าง</label>
 
 <input
-type="text"
-id="name"
-placeholder="เช่น ช่างสมชาย เซอร์วิส"
+    type="text"
+    id="name"
+    placeholder="เช่น ช่างสมชาย เซอร์วิส"
 >
 
-
-<label>
-ประเภทช่าง
-</label>
+<label>ประเภทช่าง</label>
 
 <select id="type">
 
-<option value="">
-เลือกประเภทช่าง
-</option>
+    <option value="">-- เลือกประเภทช่าง --</option>
 
-<option>ช่างแอร์</option>
-<option>ช่างไฟ</option>
-<option>ช่างประปา</option>
-<option>ช่างซ่อมรถ</option>
-<option>ช่างก่อสร้าง</option>
-<option>ช่างเครื่องใช้ไฟฟ้า</option>
-<option>ช่างอื่น ๆ</option>
+    <option value="ช่างแอร์">
+        ช่างแอร์
+    </option>
+
+    <option value="ช่างไฟ">
+        ช่างไฟ
+    </option>
+
+    <option value="ช่างประปา">
+        ช่างประปา
+    </option>
+
+    <option value="ช่างซ่อมรถ">
+        ช่างซ่อมรถ
+    </option>
+
+    <option value="ช่างก่อสร้าง">
+        ช่างก่อสร้าง
+    </option>
+
+    <option value="ช่างเครื่องใช้ไฟฟ้า">
+        ช่างเครื่องใช้ไฟฟ้า
+    </option>
+
+    <option value="ช่างอื่น ๆ">
+        ช่างอื่น ๆ
+    </option>
 
 </select>
 
-
-<label>
-จังหวัด
-</label>
+<label>จังหวัด</label>
 
 <input
-type="text"
-id="location"
-placeholder="เช่น นนทบุรี"
+    type="text"
+    id="location"
+    placeholder="เช่น นนทบุรี"
 >
 
-
-<label>
-เบอร์โทรศัพท์
-</label>
+<label>เบอร์โทรศัพท์</label>
 
 <input
-type="tel"
-id="phone"
-placeholder="เช่น 0800000000"
+    type="tel"
+    id="phone"
+    placeholder="เช่น 0812345678"
 >
 
-
-<label>
-LINE
-</label>
+<label>LINE</label>
 
 <input
-type="text"
-id="line"
-placeholder="ลิงก์ LINE หรือ LINE ID"
+    type="text"
+    id="line"
+    placeholder="ลิงก์ LINE หรือ ID LINE"
 >
-
 
 <div class="gps-box">
 
-<strong>📍 ตำแหน่งช่าง</strong>
+    <strong>📍 ตำแหน่งร้าน / จุดให้บริการ</strong>
+
+    <p>
+        กรุณากดปุ่มด้านล่างเพื่อปักตำแหน่งจริง
+        ระบบจะใช้ตำแหน่งนี้ในการคำนวณระยะทางให้ลูกค้า
+    </p>
+
+    <button
+        type="button"
+        class="gps-button"
+        id="gpsButton"
+        onclick="getTechnicianLocation()"
+    >
+        📍 ปักตำแหน่งของฉัน
+    </button>
+
+    <div id="gpsStatus">
+        ยังไม่ได้ปักตำแหน่ง
+    </div>
+
+</div>
 
 <button
-type="button"
-class="gps-button"
-onclick="getTechnicianLocation()"
-style="margin-top:12px;"
+    type="button"
+    class="submit-button"
+    id="submitButton"
+    onclick="registerTechnician()"
 >
-📍 ปักตำแหน่งของฉัน
+    สมัครเป็นช่าง
 </button>
 
 <div
-class="gps-status"
-id="gpsStatus"
->
-ยังไม่ได้ปักตำแหน่ง
-</div>
-
-</div>
-
-
-<button
-type="button"
-class="submit-button"
-onclick="registerTechnician()"
->
-ลงทะเบียนช่าง
-</button>
-
+    id="success"
+    class="success"
+></div>
 
 <div
-class="success"
-id="success"
+    id="errorBox"
+    class="error-box"
 ></div>
 
 </div>
 
 </div>
 
+<!-- Supabase JS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
+
+const SUPABASE_URL =
+    "https://adfnwfdhgqsubmlwdorr.supabase.co";
+
+const SUPABASE_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFkZm53ZmRoZ3FzdWJtbHdkb3JyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwMzA1OTAsImV4cCI6MjEwNDYwNjU5MH0.rOg2FQPhlMXQRtsggPZbTiKxFsh2py3_H2gcLUJEaA8";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 let latitude = null;
 let longitude = null;
 
 
 /* =========================
-   ปักตำแหน่งช่าง
+   GPS
 ========================= */
 
 function getTechnicianLocation(){
 
     const status =
-        document.getElementById(
-            "gpsStatus"
-        );
-
+        document.getElementById("gpsStatus");
 
     if(!navigator.geolocation){
 
@@ -282,13 +293,10 @@ function getTechnicianLocation(){
             "❌ อุปกรณ์นี้ไม่รองรับ GPS";
 
         return;
-
     }
 
-
     status.textContent =
-        "📍 กำลังค้นหาตำแหน่ง..." ;
-
+        "📍 กำลังค้นหาตำแหน่ง...";
 
     navigator.geolocation.getCurrentPosition(
 
@@ -300,21 +308,15 @@ function getTechnicianLocation(){
             longitude =
                 position.coords.longitude;
 
-
             status.innerHTML =
-
                 "✅ ปักตำแหน่งสำเร็จ<br>" +
-
                 "Latitude: " +
                 latitude.toFixed(6) +
-
                 "<br>" +
-
                 "Longitude: " +
                 longitude.toFixed(6);
 
         },
-
 
         function(error){
 
@@ -323,24 +325,18 @@ function getTechnicianLocation(){
                 status.textContent =
                     "❌ กรุณาอนุญาตให้เว็บไซต์เข้าถึงตำแหน่ง";
 
-            }
-
-            else if(error.code === 2){
+            }else if(error.code === 2){
 
                 status.textContent =
                     "❌ ไม่สามารถระบุตำแหน่งได้";
 
-            }
-
-            else{
+            }else{
 
                 status.textContent =
                     "❌ การค้นหาตำแหน่งหมดเวลา";
-
             }
 
         },
-
 
         {
             enableHighAccuracy:true,
@@ -354,53 +350,47 @@ function getTechnicianLocation(){
 
 
 /* =========================
-   ลงทะเบียน
+   REGISTER
 ========================= */
 
-function registerTechnician(){
+async function registerTechnician(){
 
     const name =
-        document.getElementById(
-            "name"
-        ).value.trim();
-
+        document.getElementById("name").value.trim();
 
     const type =
-        document.getElementById(
-            "type"
-        ).value;
-
+        document.getElementById("type").value;
 
     const location =
-        document.getElementById(
-            "location"
-        ).value.trim();
-
+        document.getElementById("location").value.trim();
 
     const phone =
-        document.getElementById(
-            "phone"
-        ).value.trim();
-
+        document.getElementById("phone").value.trim();
 
     const line =
-        document.getElementById(
-            "line"
-        ).value.trim();
-
+        document.getElementById("line").value.trim();
 
     const success =
-        document.getElementById(
-            "success"
-        );
+        document.getElementById("success");
 
+    const errorBox =
+        document.getElementById("errorBox");
+
+    const submitButton =
+        document.getElementById("submitButton");
+
+
+    success.style.display = "none";
+    errorBox.style.display = "none";
+
+
+    /* ตรวจข้อมูล */
 
     if(!name){
 
         alert("กรุณากรอกชื่อร้าน / ชื่อช่าง");
 
         return;
-
     }
 
 
@@ -409,7 +399,6 @@ function registerTechnician(){
         alert("กรุณาเลือกประเภทช่าง");
 
         return;
-
     }
 
 
@@ -418,7 +407,6 @@ function registerTechnician(){
         alert("กรุณากรอกจังหวัด");
 
         return;
-
     }
 
 
@@ -427,23 +415,21 @@ function registerTechnician(){
         alert("กรุณากรอกเบอร์โทรศัพท์");
 
         return;
-
     }
 
 
-    if(
-        latitude === null ||
-        longitude === null
-    ){
+    if(latitude === null ||
+       longitude === null){
 
         alert(
             "กรุณากด 📍 ปักตำแหน่งของฉัน ก่อนลงทะเบียน"
         );
 
         return;
-
     }
 
+
+    /* สร้างข้อมูลช่าง */
 
     const technician = {
 
@@ -451,80 +437,164 @@ function registerTechnician(){
             "tech-" +
             Date.now(),
 
-        name:name,
+        name:
+            name,
 
-        type:type,
+        type:
+            type,
 
         icon:
             getIcon(type),
 
-        location:location,
+        location:
+            location,
 
-        latitude:latitude,
+        latitude:
+            latitude,
 
-        longitude:longitude,
+        longitude:
+            longitude,
 
-        rating:0,
+        rating:
+            0,
 
-        reviews:0,
+        reviews:
+            0,
 
-        experience:0,
+        experience:
+            0,
 
-        price:0,
+        price:
+            0,
 
-        phone:phone,
+        phone:
+            phone,
 
-        line:line
-
+        line:
+            line
     };
 
 
-    console.log(
-        "ข้อมูลช่าง:",
-        technician
-    );
+    /* ป้องกันกดซ้ำ */
+
+    submitButton.disabled = true;
+
+    submitButton.textContent =
+        "⏳ กำลังบันทึกข้อมูล...";
 
 
-    success.style.display =
-        "block";
+    try{
+
+        const { error } =
+            await supabaseClient
+                .from("technicians")
+                .insert([
+                    technician
+                ]);
 
 
-    success.innerHTML =
+        if(error){
 
-        "✅ ลงทะเบียนข้อมูลสำเร็จ<br><br>" +
+            console.error(
+                "Supabase Error:",
+                error
+            );
 
-        "ชื่อ: " +
-        technician.name +
+            errorBox.style.display =
+                "block";
 
-        "<br>" +
+            errorBox.innerHTML =
+                "❌ ไม่สามารถบันทึกข้อมูลได้<br><br>" +
+                "รายละเอียด: " +
+                error.message;
 
-        "ประเภท: " +
-        technician.type +
+            submitButton.disabled =
+                false;
 
-        "<br>" +
+            submitButton.textContent =
+                "สมัครเป็นช่าง";
 
-        "จังหวัด: " +
-        technician.location +
+            return;
+        }
 
-        "<br>" +
 
-        "📍 พิกัด: " +
+        /* สำเร็จ */
 
-        technician.latitude.toFixed(6) +
+        success.style.display =
+            "block";
 
-        ", " +
+        success.innerHTML =
+            "✅ สมัครเป็นช่างสำเร็จ!<br><br>" +
 
-        technician.longitude.toFixed(6) +
+            "ชื่อ: " +
+            technician.name +
 
-        "<br><br>" +
+            "<br>" +
 
-        "ข้อมูลถูกเตรียมไว้สำหรับเชื่อมเข้าระบบฐานข้อมูล";
+            "ประเภท: " +
+            technician.type +
+
+            "<br>" +
+
+            "จังหวัด: " +
+            technician.location +
+
+            "<br>" +
+
+            "📍 พิกัด: " +
+
+            technician.latitude.toFixed(6) +
+
+            ", " +
+
+            technician.longitude.toFixed(6) +
+
+            "<br><br>" +
+
+            "ข้อมูลถูกบันทึกเข้าสู่ระบบ BP AUTO แล้ว";
+
+
+        submitButton.textContent =
+            "✅ สมัครสำเร็จ";
+
+
+        /* ล้างฟอร์ม */
+
+        document.getElementById("name").value = "";
+        document.getElementById("type").value = "";
+        document.getElementById("location").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("line").value = "";
+
+        latitude = null;
+        longitude = null;
+
+        document.getElementById("gpsStatus").textContent =
+            "ยังไม่ได้ปักตำแหน่ง";
+
+
+    }catch(error){
+
+        console.error(error);
+
+        errorBox.style.display =
+            "block";
+
+        errorBox.innerHTML =
+            "❌ เกิดข้อผิดพลาดในการเชื่อมต่อ Supabase";
+
+        submitButton.disabled =
+            false;
+
+        submitButton.textContent =
+            "สมัครเป็นช่าง";
+    }
 
 }
 
 
 /* =========================
-   ไอคอนตามประเภท
+   ICON
 ========================= */
 
 function getIcon(type){
@@ -548,7 +618,6 @@ function getIcon(type){
         return "🔌";
 
     return "🛠️";
-
 }
 
 </script>
