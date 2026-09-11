@@ -165,21 +165,7 @@
     </div>
   </div>
   <script>
-    function loginUser(event) {
-      event.preventDefault();
-      const email =
-        document.getElementById("email").value.trim();
-      const password =
-        document.getElementById("password").value;
-      if (!email || !password) {
-        alert("กรุณากรอกข้อมูลให้ครบครับ");
-        return;
-      }
-      alert(
-        "ระบบได้รับข้อมูลการเข้าสู่ระบบแล้วครับ\n\n" +
-        "ขั้นตอนถัดไปเราจะเชื่อมระบบบัญชีจริง"
-      );
-    }
+  
     function forgotPassword(event) {
       event.preventDefault();
       alert(
@@ -187,5 +173,20 @@
       );
     }
   </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  const SUPABASE_URL =
+    "https://adfnwfdhgqsubmlwdorr.supabase.co";
+
+  const SUPABASE_KEY =
+    "sb_publishable_aWz60lF1KJt-ex5SHsmNpQ_a2SLpDFO";
+
+  const supabaseClient =
+    window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+</script>
 </body>
 </html>
