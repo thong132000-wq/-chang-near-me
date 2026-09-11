@@ -317,7 +317,113 @@
 
 
   loadTechnician();
+  async function updateTechnician(event) {
 
+    event.preventDefault();
+
+    const {
+      data: sessionData
+    } = await supabaseClient.auth.getSession();
+
+    const user =
+      sessionData?.session?.user || null;
+
+    if (!user) {
+
+      alert("กรุณาเข้าสู่ระบบก่อนครับ");
+
+      window.location.href = "login.html";
+
+      return;
+    }
+
+
+    const name =
+      document.getElementById("name")
+        .value.trim();
+
+    const phone =
+      document.getElementById("phone")
+        .value.trim();
+
+    const phone2 =
+      document.getElementById("phone2")
+        .value.trim();
+
+    const line =
+      document.getElementById("line")
+        .value.trim();
+
+    const category =
+      document.getElementById("category")
+        .value;
+
+    const province =
+      document.getElementById("province")
+        .value;
+
+    const experience =
+      Number(
+        document.getElementById("experience")
+          .value
+      ) || 0;
+
+    const price =
+      Number(
+        document.getElementById("price")
+          .value
+      ) || 0;
+
+    const description =
+      document.getElementById("description")
+        .value.trim();
+
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("technicians")
+        .update({
+
+          name: name,
+
+          phone: phone,
+
+          phone2: phone2 || null,
+
+          line: line,
+
+          type: category,
+
+          location: province,
+
+          experience: experience,
+
+          price: price,
+
+          description: description
+
+        })
+        .eq("id", user.id);
+
+
+    if (error) {
+
+      alert(
+        "❌ บันทึกข้อมูลไม่สำเร็จ\n\n" +
+        error.message
+      );
+
+      return;
+    }
+
+
+    alert(
+      "✅ บันทึกข้อมูลช่างเรียบร้อยแล้วครับ"
+    );
+
+  }
 </script>
 </body>
 </html>
