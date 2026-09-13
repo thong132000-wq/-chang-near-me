@@ -229,12 +229,14 @@
     await supabaseClient.auth.resetPasswordForEmail(
       email.trim(),
       {
-        redirectTo:
-          window.location.origin + "/reset-password.html"
+
+  redirectTo:
+    window.location.origin + "/-chang-near-me/reset-password.html"
+
       }
     );
-
-  if (error) {
+if (error) {
+  
 
     alert(
       "❌ ส่งลิงก์รีเซ็ตรหัสผ่านไม่สำเร็จ\n\n" +
