@@ -307,10 +307,11 @@ id="empty"
 </div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
 
 let technicians = [];
-
 let userLatitude = null;
 let userLongitude = null;
 
@@ -323,19 +324,19 @@ async function loadTechnicians(){
 
     try{
 
-        const response =
-            await fetch("technicians.json");
+        const { data, error } =
+            await supabaseClient
+                .from("technician_public")
+                .select("*");
 
-        if(!response.ok){
+        if(error){
 
-            throw new Error(
-                "ไม่พบ technicians.json"
-            );
+            throw error;
 
         }
 
         technicians =
-            await response.json();
+            data || [];
 
         createProvinceList();
 
