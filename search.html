@@ -312,6 +312,17 @@ id="empty"
 <script>
 
 let technicians = [];
+    const SUPABASE_URL =
+    "https://adfnwfdhgqsubmlwdorr.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_aWz60lF1KJt-ex5SHsmNpQ_a2SLpDFO";
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 let userLatitude = null;
 let userLongitude = null;
 
