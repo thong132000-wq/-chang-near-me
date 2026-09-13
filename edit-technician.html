@@ -193,7 +193,26 @@
           <option>อื่น ๆ</option>
 
         </select>
+<label>📍 ตำแหน่งช่าง</label>
 
+<button
+  type="button"
+  class="btn"
+  style="background:#2563eb;margin-top:5px;"
+  onclick="getTechnicianLocation()"
+>
+  📍 ใช้ตำแหน่งปัจจุบันของฉัน
+</button>
+
+<p
+  id="locationStatus"
+  style="margin-top:10px;color:#6b7280;text-align:center;"
+>
+  ยังไม่ได้ปักตำแหน่ง
+</p>
+
+<input type="hidden" id="latitude">
+<input type="hidden" id="longitude">
         <label>ประสบการณ์</label>
 
         <select id="experience">
@@ -313,10 +332,74 @@
 
     document.getElementById("description").value =
       technician.description || "";
+document.getElementById("latitude").value =
+  technician.latitude ?? "";
+
+document.getElementById("longitude").value =
+  technician.longitude ?? "";
+
+if (technician.latitude && technician.longitude) {
+
+  document.getElementById("locationStatus").textContent =
+    "✅ มีตำแหน่งช่างบันทึกไว้แล้ว";
+
+}
   }
 
 
   loadTechnician();
+  async function getTechnicianLocation() {
+
+  const status =
+    document.getElementById("locationStatus");
+
+  if (!navigator.geolocation) {
+
+    status.textContent =
+      "❌ อุปกรณ์นี้ไม่รองรับการระบุตำแหน่ง";
+
+    return;
+  }
+
+  status.textContent =
+    "📍 กำลังค้นหาตำแหน่งของคุณ...";
+
+  navigator.geolocation.getCurrentPosition(
+
+    function(position) {
+
+      const latitude =
+        position.coords.latitude;
+
+      const longitude =
+        position.coords.longitude;
+
+      document.getElementById("latitude").value =
+        latitude;
+
+      document.getElementById("longitude").value =
+        longitude;
+
+      status.textContent =
+        "✅ ปักตำแหน่งเรียบร้อยแล้ว";
+
+    },
+
+    function(error) {
+
+      status.textContent =
+        "❌ ไม่สามารถรับตำแหน่งได้ กรุณาอนุญาตการเข้าถึงตำแหน่ง";
+
+    },
+
+    {
+      enableHighAccuracy: true,
+      timeout: 15000,
+      maximumAge: 0
+    }
+
+  );
+}
   async function updateTechnician(event) {
 
     event.preventDefault();
@@ -379,6 +462,16 @@
         .value.trim();
 
 
+const latitude =
+  document.getElementById("latitude").value
+    ? Number(document.getElementById("latitude").value)
+    : null;
+
+const longitude =
+  document.getElementById("longitude").value
+    ? Number(document.getElementById("longitude").value)
+    : null;
+
     const {
       error
     } =
@@ -396,10 +489,13 @@
 
           type: category,
 
-          location: province,
+latitude: latitude,
 
-          experience: experience,
+longitude: longitude,
 
+location: province,
+          
+  experience: experience,
           price: price,
 
           description: description
