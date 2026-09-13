@@ -713,16 +713,20 @@
       </nav>
 
       <div class="nav-actions">
-        <button class="btn btn-outline" onclick="login()">
-          เข้าสู่ระบบ
-        </button>
 
-        <button class="btn btn-orange" onclick="registerTechnician()">
-          เป็นช่าง
-        </button>
-      </div>
+  <button class="btn btn-outline" onclick="login()">
+    เข้าสู่ระบบ
+  </button>
 
-    </div>
+  <button class="btn btn-outline" onclick="editTechnician()">
+    ✏️ แก้ไขข้อมูลช่าง
+  </button>
+
+  <button class="btn btn-orange" onclick="registerTechnician()">
+    เป็นช่าง
+  </button>
+
+</div>
   </header>
 
 
@@ -1373,7 +1377,9 @@
 function login() {
   window.location.href = "login.html";
 }
-
+function editTechnician() {
+  window.location.href = "edit-technician.html";
+}
 </script>
 
 </body>
