@@ -199,12 +199,7 @@
 
   window.location.href = "index.html";
 }
-    function forgotPassword(event) {
-      event.preventDefault();
-      alert(
-        "ระบบรีเซ็ตรหัสผ่านจะเปิดใช้งานหลังจากเชื่อมฐานข้อมูลจริงครับ"
-      );
-    }
+
   </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -220,6 +215,40 @@
       SUPABASE_URL,
       SUPABASE_KEY
     );
+  async function forgotPassword(event) {
+
+  event.preventDefault();
+
+  const email = prompt("กรุณากรอกอีเมลที่ใช้สมัครบัญชีครับ");
+
+  if (!email) {
+    return;
+  }
+
+  const { error } =
+    await supabaseClient.auth.resetPasswordForEmail(
+      email.trim(),
+      {
+        redirectTo:
+          window.location.origin + "/reset-password.html"
+      }
+    );
+
+  if (error) {
+
+    alert(
+      "❌ ส่งลิงก์รีเซ็ตรหัสผ่านไม่สำเร็จ\n\n" +
+      error.message
+    );
+
+    return;
+  }
+
+  alert(
+    "✅ ส่งลิงก์รีเซ็ตรหัสผ่านแล้วครับ\n\n" +
+    "กรุณาเช็กอีเมลของคุณ แล้วกดลิงก์เพื่อสร้างรหัสผ่านใหม่"
+  );
+}
 </script>
 </body>
 </html>
