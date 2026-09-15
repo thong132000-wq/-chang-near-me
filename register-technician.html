@@ -453,7 +453,9 @@ const line =
         document.getElementById("price")
           .value
       ) || 0;
-
+const description =
+  document.getElementById("description")
+    .value.trim();
     const password =
       document.getElementById("password")
         .value;
@@ -649,8 +651,10 @@ const line =
 
 phone2: phone2,
 
-line: line
-    };
+line: line,
+
+description: description 
+ };
 
 
     // =========================
