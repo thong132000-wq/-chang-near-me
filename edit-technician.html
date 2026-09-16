@@ -213,6 +213,10 @@
 
 <input type="hidden" id="latitude">
 <input type="hidden" id="longitude">
+<div
+  id="map"
+  style="width:100%;height:350px;margin-top:15px;border-radius:12px;overflow:hidden;"
+></div>
         <label>ประสบการณ์</label>
 
         <select id="experience">
@@ -275,11 +279,13 @@
       SUPABASE_KEY
     );
 </script>
-<script>
+ <script>
+  let map;
+  let marker;
 
   async function loadTechnician() {
 
-    const {
+  const {
       data: sessionData
     } = await supabaseClient.auth.getSession();
 
@@ -346,31 +352,140 @@ document.getElementById("latitude").value =
 
 document.getElementById("longitude").value =
   technician.longitude ?? "";
-
 if (technician.latitude && technician.longitude) {
 
   document.getElementById("locationStatus").textContent =
-    "✅ มีตำแหน่งช่างบันทึกไว้แล้ว";
 
+    "✅ มีตำแหน่งช่างบันทึกไว้แล้ว";
 }
+initMap();
+}
+  function initMap() {
+
+  const lat =
+
+    document.getElementById("latitude").value;
+
+  const lng =
+
+    document.getElementById("longitude").value;
+
+  let startLat = 13.7367;
+
+  let startLng = 100.5231;
+
+  let zoom = 6;
+
+  if (lat && lng) {
+
+    startLat = Number(lat);
+
+    startLng = Number(lng);
+
+    zoom = 15;
+
   }
 
+  map = L.map("map").setView(
 
-  loadTechnician();
-  async function getTechnicianLocation() {
+    [startLat, startLng],
+
+    zoom
+
+  );
+
+  L.tileLayer(
+
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
+    {
+
+      attribution:
+
+        "&copy; OpenStreetMap contributors"
+
+    }
+
+  ).addTo(map);
+
+  if (lat && lng) {
+
+    marker = L.marker([
+
+      Number(lat),
+
+      Number(lng)
+
+    ]).addTo(map);
+
+  }
+
+  map.on("click", function(e) {
+
+    const latitude =
+
+      e.latlng.lat;
+
+    const longitude =
+
+      e.latlng.lng;
+document.getElementById("latitude").value =
+
+      latitude;
+
+    document.getElementById("longitude").value =
+
+      longitude;
+    
+
+    if (marker) {
+
+      marker.setLatLng([
+
+        latitude,
+
+        longitude
+
+      ]);
+
+    } else {
+
+      marker = L.marker([
+
+        latitude,
+
+        longitude
+
+      ]).addTo(map);
+
+    }
+
+    document.getElementById("locationStatus").textContent =
+
+      "✅ เลือกตำแหน่งช่างเรียบร้อยแล้ว";
+
+  });
+
+}
+
+async function getTechnicianLocation() {
 
   const status =
+
     document.getElementById("locationStatus");
 
   if (!navigator.geolocation) {
 
     status.textContent =
+
       "❌ อุปกรณ์นี้ไม่รองรับการระบุตำแหน่ง";
 
     return;
+
   }
 
   status.textContent =
+
     "📍 กำลังค้นหาตำแหน่งของคุณ...";
 
   navigator.geolocation.getCurrentPosition(
@@ -378,39 +493,70 @@ if (technician.latitude && technician.longitude) {
     function(position) {
 
       const latitude =
+
         position.coords.latitude;
 
       const longitude =
+
         position.coords.longitude;
+document.getElementById("latitude").value =
+  latitude;
 
-      document.getElementById("latitude").value =
-        latitude;
+document.getElementById("longitude").value =
+  longitude;
+      
+if (map) {
 
-      document.getElementById("longitude").value =
-        longitude;
+  map.setView(
+    [latitude, longitude],
+    15
+  );
 
-      status.textContent =
-        "✅ ปักตำแหน่งเรียบร้อยแล้ว";
+  if (marker) {
 
+    marker.setLatLng([
+      latitude,
+      longitude
+    ]);
+
+  } else {
+
+    marker = L.marker([
+      latitude,
+      longitude
+    ]).addTo(map);
+
+  }
+
+}
+
+status.textContent =
+  "✅ ปักตำแหน่งเรียบร้อยแล้ว";
     },
 
     function(error) {
 
       status.textContent =
+
         "❌ ไม่สามารถรับตำแหน่งได้ กรุณาอนุญาตการเข้าถึงตำแหน่ง";
 
     },
 
     {
+
       enableHighAccuracy: true,
+
       timeout: 15000,
+
       maximumAge: 0
+
     }
 
   );
-}
-  async function updateTechnician(event) {
 
+}
+
+async function updateTechnician(event) {
     event.preventDefault();
 
     const {
@@ -529,6 +675,7 @@ location: province,
     );
 
   }
+    loadTechnician();
 </script>
 </body>
 </html>
