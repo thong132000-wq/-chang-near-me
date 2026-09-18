@@ -537,6 +537,51 @@ function showProvinces(){
 
     dropdown.style.display = "block";
 }
+ function filterProvinces(){
+
+    const input =
+        document.getElementById("location");
+
+    const dropdown =
+        document.getElementById("provinceDropdown");
+
+    const keyword =
+        input.value.trim().toLowerCase();
+
+    const filtered =
+        provinces.filter(province =>
+            !keyword ||
+            province.toLowerCase().includes(keyword)
+        );
+
+    dropdown.innerHTML = "";
+
+    filtered.forEach(province => {
+
+        const option =
+            document.createElement("div");
+
+        option.className =
+            "province-option";
+
+        option.textContent =
+            province;
+
+        option.onclick = function(){
+
+            input.value = province;
+
+            dropdown.style.display = "none";
+
+            search();
+        };
+
+        dropdown.appendChild(option);
+    });
+
+    dropdown.style.display =
+        filtered.length ? "block" : "none";
+}   
  function renderTechnicians(){
     const cards =
         document.getElementById(
