@@ -236,6 +236,18 @@ async function loadProfile(){
     document.title =
         (technician.name || "หน้าร้านช่าง") +
         " | ช่างใกล้ฉัน";
+   // เพิ่มยอดเข้าชมหน้าร้าน
+const { error: viewError } =
+    await supabaseClient.rpc(
+        "increment_profile_views",
+        {
+            technician_id: technicianId
+        }
+    );
+
+if(viewError){
+    console.error("ไม่สามารถเพิ่มยอดเข้าชม:", viewError);
+}
     card.innerHTML = `
         <div class="profile-top">
             <div class="avatar">
@@ -263,7 +275,7 @@ async function loadProfile(){
             </div>
             <div class="stat">
                 <div class="stat-number">
-                    0
+                ${(technician.profile_views ?? 0) + 1}    
                 </div>
                 <div class="stat-label">
                     เข้าชมโปรไฟล์
