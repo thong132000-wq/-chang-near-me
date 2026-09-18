@@ -254,12 +254,21 @@ type="text"
 id="keyword"
 placeholder="เช่น ช่างแอร์ ช่างไฟ ช่างประปา"
 >
+<input
 
-<select id="location">
+type="text"
 
-<option value="">ทุกจังหวัด</option>
+id="location"
 
-</select>
+list="provinceList"
+
+placeholder="พิมพ์ชื่อจังหวัด เช่น ศรีสะเกษ"
+
+>
+
+<datalist id="provinceList">
+
+</datalist>
 
 <button onclick="search()">
 🔎 ค้นหาช่าง
@@ -373,11 +382,10 @@ async function loadTechnicians(){
 /* =========================
    สร้างรายชื่อจังหวัด
 ========================= */
-
 function createProvinceList(){
 
-    const select =
-        document.getElementById("location");
+    const datalist =
+        document.getElementById("provinceList");
 
     const provinces = [
         "กรุงเทพมหานคร",
@@ -464,16 +472,13 @@ function createProvinceList(){
             document.createElement("option");
 
         option.value = province;
-        option.textContent = province;
 
-        select.appendChild(option);
+        datalist.appendChild(option);
 
     });
 
 }
-/* =========================
-   แสดงช่าง
-========================= */
+
 
 function renderTechnicians(){
 
