@@ -665,7 +665,7 @@ function showProvinces(){
                     </button>
 
                     <button
-                        onclick="contact('${technician.name || ""}')"
+                  onclick="contact('${technician.name || ""}', '${technician.phone || ""}')"      
                     >
                         ติดต่อ
                     </button>
@@ -1128,21 +1128,34 @@ function viewProfile(id){
    ระบบติดต่อเดิม
 ========================= */
 
-function contact(name){
+function contact(name, phone){
 
-    alert(
+    if(!phone){
 
-        "ติดต่อ " +
-        name +
+        alert(
+            "❌ ช่างรายนี้ยังไม่ได้ระบุเบอร์โทรศัพท์"
+        );
 
-        "\n\nระบบโทร / LINE / แชต\n" +
+        return;
+    }
 
-        "จะเชื่อมต่อในขั้นตอนถัดไป"
+    const confirmCall =
+        confirm(
+            "ติดต่อ " +
+            name +
+            "\n\n📞 เบอร์โทร: " +
+            phone +
+            "\n\nต้องการโทรหาช่างรายนี้หรือไม่?"
+        );
 
-    );
+    if(confirmCall){
+
+        window.location.href =
+            "tel:" + phone;
+
+    }
 
 }
-
 
 /* =========================
    เริ่มต้น
