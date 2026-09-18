@@ -747,13 +747,17 @@ function search(){
                     .toLowerCase()
                     .includes(keyword);
 
+const locationText =
+    location.trim().toLowerCase();
 
-            const locationMatch =
+const locationMatch =
 
-                !location ||
+    !locationText ||
 
-                cardLocation === location;
-
+    cardLocation
+        .toLowerCase()
+        .includes(locationText);
+            
 
             if(
                 keywordMatch &&
