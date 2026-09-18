@@ -377,13 +377,21 @@ if(viewError){
             }
         </div>
         <div class="buttons">
-            
-                href="search.html"
-                class="btn home"
-            >
-                🔎 ค้นหาช่าง
-            </a>
-        </div>
+   ${isOwner ? `
+    <a
+        href="technician-edit.html"
+        class="btn edit"
+    >
+        ✏️ แก้ไขข้อมูลช่าง
+    </a>
+` : ""}         
+  <a
+        href="search.html"
+        class="btn home"
+    >
+        🔎 ค้นหาช่าง
+    </a>
+</div>                
     `;
 }
 loadProfile();
