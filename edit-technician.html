@@ -673,7 +673,11 @@ location: province,
     alert(
       "✅ บันทึกข้อมูลช่างเรียบร้อยแล้วครับ"
     );
+window.location.href =
 
+    "technician-profile.html?id=" +
+
+    encodeURIComponent(user.id);
   }
     loadTechnician();
 </script>
