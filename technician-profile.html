@@ -245,6 +245,37 @@ const user =
 
 const isOwner =
     user && user.id === technician.id;
+function contactLine(line, name){
+
+    if(!line){
+
+        alert(
+            "❌ ช่างรายนี้ยังไม่ได้ระบุ LINE ID"
+        );
+
+        return;
+    }
+
+    const cleanLine =
+        line.replace(/^@/, "").trim();
+
+    const confirmLine =
+        confirm(
+            "ติดต่อ " +
+            name +
+            " ผ่าน LINE\n\n" +
+            "LINE ID: @" +
+            cleanLine +
+            "\n\nต้องการเปิด LINE หรือไม่?"
+        );
+
+    if(confirmLine){
+
+        window.location.href =
+            "https://line.me/R/ti/p/@" +
+            encodeURIComponent(cleanLine);
+    }
+}
     // เพิ่มยอดเข้าชมหน้าร้าน
 const { error: viewError } =
     await supabaseClient.rpc(
@@ -376,25 +407,36 @@ if(viewError){
                 ""
             }
         </div>
-        <div class="buttons">
-   ${isOwner ? `
+      <div class="buttons">
+
+    ${technician.line ? `
+        <button
+            type="button"
+            class="btn"
+            style="background:#06c755;"
+            onclick='contactLine(
+                ${JSON.stringify(technician.line)},
+                ${JSON.stringify(technician.name || "ช่าง")}
+            )'
+        >
+            💬 ติดต่อ LINE
+        </button>
+    ` : ""}
+
+    ${isOwner ? `
+        <a
+            href="edit-technician.html"
+            class="btn edit"
+        >
+            ✏️ แก้ไขข้อมูลช่าง
+        </a>
+    ` : ""}
+
     <a
-  href="edit-technician.html"
-        class="btn edit"
-    >
-        ✏️ แก้ไขข้อมูลช่าง
-    </a>
-` : ""}         
-  <a
         href="search.html"
         class="btn home"
     >
         🔎 ค้นหาช่าง
     </a>
-</div>                
-    `;
-}
-loadProfile();
-</script>
-</body>
-</html>
+
+</div>
