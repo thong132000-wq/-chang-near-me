@@ -691,6 +691,7 @@
       }
     }
   </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -719,7 +720,9 @@
   <button class="btn btn-outline" onclick="login()">
     เข้าสู่ระบบ
   </button>
-
+  <button class="btn btn-outline" onclick="myStore()">
+    🏪 หน้าร้านของฉัน
+  </button>
   <button class="btn btn-outline" onclick="editTechnician()">
     ✏️ แก้ไขข้อมูลช่าง
   </button>
@@ -1299,7 +1302,17 @@
   ========================== -->
 
   <script>
+const SUPABASE_URL =
+  "https://adfnwfdhgqsubmlwdorr.supabase.co";
 
+const SUPABASE_KEY =
+  "sb_publishable_aWz60lF1KJt-ex5SHsmNpQ_a2SLpDFO";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
     function searchTechnician() {
 
   const keyword =
@@ -1375,10 +1388,38 @@
     function registerTechnician() {
   window.location.href = "register-technician.html";
 }
-
 function login() {
+
   window.location.href = "login.html";
+
 }
+
+async function myStore() {
+
+  const { data: { session } } =
+
+    await supabaseClient.auth.getSession();
+
+  if (!session) {
+
+    alert("กรุณาเข้าสู่ระบบก่อนครับ");
+
+    window.location.href = "login.html";
+
+    return;
+
+  }
+
+  window.location.href =
+
+    "technician-profile.html?id=" +
+
+    encodeURIComponent(session.user.id);
+
+}
+
+
+
 function editTechnician() {
   window.location.href = "technician-edit.html";
 }
