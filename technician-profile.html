@@ -3,342 +3,375 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>โปรไฟล์ช่าง | ช่างใกล้ฉัน</title>
-
+<title>หน้าร้านช่าง | ช่างใกล้ฉัน</title>
 <style>
-
 *{
-box-sizing:border-box;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
-
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f5f7fa;
-color:#172033;
+    font-family:Arial,sans-serif;
+    background:#f5f7fa;
+    color:#172033;
 }
-
 header{
-background:#0b1736;
-color:white;
-padding:18px 20px;
+    background:#111827;
+    color:white;
+    padding:16px 20px;
 }
-
-.header-inner{
-max-width:900px;
-margin:auto;
-display:flex;
-justify-content:space-between;
-align-items:center;
+.nav{
+    max-width:900px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }
-
 .logo{
-font-size:22px;
-font-weight:bold;
+    font-size:22px;
+    font-weight:bold;
 }
-
 .back{
-color:white;
-text-decoration:none;
-font-size:14px;
+    color:white;
+    text-decoration:none;
+    font-size:14px;
 }
-
 .container{
-max-width:900px;
-margin:25px auto;
-padding:0 16px;
+    max-width:700px;
+    margin:30px auto;
+    padding:0 20px;
 }
-
-.profile{
-background:white;
-border-radius:16px;
-padding:25px;
-box-shadow:0 4px 15px rgba(0,0,0,.08);
+.card{
+    background:white;
+    border-radius:18px;
+    padding:28px 22px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
 }
-
 .profile-top{
-text-align:center;
+    text-align:center;
 }
-
 .avatar{
-width:100px;
-height:100px;
-border-radius:50%;
-background:#ff7a00;
-color:white;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:38px;
-font-weight:bold;
-margin:0 auto 15px;
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:#e5e7eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
+    margin:0 auto 15px;
 }
-
 .name{
-font-size:25px;
-font-weight:bold;
-margin-bottom:8px;
+    font-size:26px;
+    font-weight:bold;
+    margin-bottom:8px;
 }
-
+.type{
+    color:#f97316;
+    font-weight:bold;
+    font-size:17px;
+}
 .rating{
-color:#f59e0b;
-font-size:18px;
-margin-bottom:8px;
+    margin-top:12px;
+    font-size:16px;
 }
-
-.location{
-color:#667085;
-margin-bottom:20px;
-}
-
-.info{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-top:20px;
-}
-
 .info-box{
-background:#f7f8fa;
-padding:15px;
-border-radius:10px;
+    margin-top:25px;
+    border-top:1px solid #e5e7eb;
+    padding-top:20px;
 }
-
-.info-title{
-font-size:13px;
-color:#667085;
-margin-bottom:5px;
+.info-row{
+    padding:10px 0;
+    line-height:1.6;
 }
-
-.info-value{
-font-weight:bold;
-font-size:16px;
+.label{
+    color:#667085;
+    font-size:14px;
 }
-
-.section{
-margin-top:25px;
+.value{
+    font-weight:bold;
 }
-
-.section h2{
-font-size:19px;
-margin-bottom:10px;
-}
-
 .description{
-line-height:1.7;
-color:#4b5563;
+    margin-top:20px;
+    background:#f8fafc;
+    padding:16px;
+    border-radius:12px;
+    line-height:1.8;
 }
-
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:20px;
+}
+.stat{
+    background:#f8fafc;
+    padding:16px;
+    border-radius:12px;
+    text-align:center;
+}
+.stat-number{
+    font-size:24px;
+    font-weight:bold;
+}
+.stat-label{
+    color:#667085;
+    font-size:13px;
+    margin-top:5px;
+}
 .buttons{
-display:flex;
-gap:10px;
-margin-top:25px;
+    display:flex;
+    gap:10px;
+    margin-top:25px;
 }
-
 .btn{
-flex:1;
-border:0;
-padding:14px;
-border-radius:10px;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-text-decoration:none;
-text-align:center;
+    flex:1;
+    border:0;
+    border-radius:10px;
+    padding:14px;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    text-decoration:none;
+    text-align:center;
+    cursor:pointer;
 }
-
-.call{
-background:#0b1736;
-color:white;
+.edit{
+    background:#111827;
 }
-
-.line{
-background:#ff7a00;
-color:white;
+.home{
+    background:#6b7280;
 }
-
+.loading{
+    text-align:center;
+    padding:40px;
+    color:#667085;
+}
+.error{
+    text-align:center;
+    padding:30px;
+    color:#dc2626;
+}
 @media(max-width:600px){
-
-.info{
-grid-template-columns:1fr;
+    .buttons{
+        flex-direction:column;
+    }
 }
-
-.buttons{
-flex-direction:column;
-}
-
-}
-
 </style>
 </head>
-
 <body>
-
 <header>
-
-<div class="header-inner">
-
+<div class="nav">
 <div class="logo">
-ช่างใกล้ฉัน
+🔧 ช่างใกล้ฉัน
 </div>
-
 <a href="search.html" class="back">
-← กลับหน้าค้นหา
+← กลับค้นหาช่าง
 </a>
-
 </div>
-
 </header>
-
-
 <div class="container">
-
-<div class="profile">
-
-<div class="profile-top">
-
-<div class="avatar">
-ช
+<div class="card" id="profileCard">
+<div class="loading">
+กำลังโหลดข้อมูลร้านช่าง...
 </div>
-
-<div class="name">
-ช่างสมชาย เซอร์วิส
 </div>
-
-<div class="rating">
-⭐ 4.9 / 5.0
 </div>
-
-<div class="location">
-📍 นนทบุรี
-</div>
-
-</div>
-
-
-<div class="info">
-
-<div class="info-box">
-
-<div class="info-title">
-ประเภทงาน
-</div>
-
-<div class="info-value">
-🔧 ช่างแอร์
-</div>
-
-</div>
-
-
-<div class="info-box">
-
-<div class="info-title">
-ประสบการณ์
-</div>
-
-<div class="info-value">
-8 ปี
-</div>
-
-</div>
-
-
-<div class="info-box">
-
-<div class="info-title">
-ราคาเริ่มต้น
-</div>
-
-<div class="info-value">
-500 บาท
-</div>
-
-</div>
-
-
-<div class="info-box">
-
-<div class="info-title">
-รีวิว
-</div>
-
-<div class="info-value">
-128 รีวิว
-</div>
-
-</div>
-
-</div>
-
-
-<div class="section">
-
-<h2>
-เกี่ยวกับช่าง
-</h2>
-
-<div class="description">
-
-รับติดตั้ง ล้าง ซ่อม และตรวจเช็กเครื่องปรับอากาศ
-ให้บริการในพื้นที่นนทบุรีและพื้นที่ใกล้เคียง
-มีประสบการณ์ทำงานมากกว่า 8 ปี
-เน้นงานเรียบร้อย ราคาเป็นธรรม และตรงต่อเวลา
-
-</div>
-
-</div>
-
-
-<div class="section">
-
-<h2>
-บริการ
-</h2>
-
-<div class="description">
-
-• ล้างแอร์<br>
-• ซ่อมแอร์<br>
-• เติมน้ำยาแอร์<br>
-• ติดตั้งแอร์<br>
-• ตรวจเช็กระบบแอร์
-
-</div>
-
-</div>
-
-
-<div class="buttons">
-
-<a href="tel:0800000000" class="btn call">
-📞 โทรหาช่าง
-</a>
-
-<a href="#" class="btn line" onclick="contactLine(); return false;">
-💬 ติดต่อ LINE
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-
-function contactLine(){
-
-alert(
-"ระบบ LINE ของช่าง\n\n" +
-"จะเชื่อมต่อกับบัญชี LINE ของช่างในขั้นตอนถัดไป"
+const SUPABASE_URL =
+"https://adfnwfdhgqsubmlwdorr.supabase.co";
+const SUPABASE_KEY =
+"sb_publishable_aWz60lF1KJt-ex5SHsmNpQ_a2SLpDFO";
+const supabaseClient =
+window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
-
+/* =========================
+   อ่าน ID จาก URL
+========================= */
+const params =
+new URLSearchParams(
+    window.location.search
+);
+const technicianId =
+params.get("id");
+/* =========================
+   โหลดหน้าร้าน
+========================= */
+async function loadProfile(){
+    const card =
+    document.getElementById(
+        "profileCard"
+    );
+    if(!technicianId){
+        card.innerHTML = `
+            <div class="error">
+                ❌ ไม่พบรหัสช่าง
+            </div>
+        `;
+        return;
+    }
+    const {
+        data: technician,
+        error
+    } =
+    await supabaseClient
+        .from("technician_public")
+        .select("*")
+        .eq("id", technicianId)
+        .single();
+    if(error || !technician){
+        console.error(error);
+        card.innerHTML = `
+            <div class="error">
+                ❌ ไม่พบข้อมูลช่าง
+                <br><br>
+                กรุณากลับไปค้นหาช่างอีกครั้ง
+            </div>
+        `;
+        return;
+    }
+    document.title =
+        (technician.name || "หน้าร้านช่าง") +
+        " | ช่างใกล้ฉัน";
+    card.innerHTML = `
+        <div class="profile-top">
+            <div class="avatar">
+                ${technician.icon || "🔧"}
+            </div>
+            <div class="name">
+                ${technician.name || "ช่างไม่ระบุชื่อ"}
+            </div>
+            <div class="type">
+                ${technician.type || "ช่างทั่วไป"}
+            </div>
+            <div class="rating">
+                ⭐ ${technician.rating ?? 0}
+                (${technician.reviews ?? 0} รีวิว)
+            </div>
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">
+                    ${technician.reviews ?? 0}
+                </div>
+                <div class="stat-label">
+                    รีวิว
+                </div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">
+                    0
+                </div>
+                <div class="stat-label">
+                    เข้าชมโปรไฟล์
+                </div>
+            </div>
+        </div>
+        <div class="info-box">
+            <div class="info-row">
+                <div class="label">
+                    📍 พื้นที่ให้บริการ
+                </div>
+                <div class="value">
+                    ${technician.location || "ไม่ระบุ"}
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="label">
+                    🛠️ ประสบการณ์
+                </div>
+                <div class="value">
+                    ${
+                        technician.experience ??
+                        0
+                    } ปี
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="label">
+                    💰 ราคาเริ่มต้น
+                </div>
+                <div class="value">
+                    ${
+                        technician.price ??
+                        0
+                    } บาท
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="label">
+                    📞 เบอร์โทรศัพท์
+                </div>
+                <div class="value">
+                    ${
+                        technician.phone ||
+                        "ไม่ระบุ"
+                    }
+                </div>
+            </div>
+            ${
+                technician.phone2
+                ?
+                `
+                <div class="info-row">
+                    <div class="label">
+                        📞 เบอร์สำรอง
+                    </div>
+                    <div class="value">
+                        ${technician.phone2}
+                    </div>
+                </div>
+                `
+                :
+                ""
+            }
+            <div class="info-row">
+                <div class="label">
+                    💬 LINE
+                </div>
+                <div class="value">
+                    ${
+                        technician.line ||
+                        "ไม่ระบุ"
+                    }
+                </div>
+            </div>
+            ${
+                technician.description
+                ?
+                `
+                <div class="description">
+                    <strong>
+                        📝 รายละเอียดบริการ
+                    </strong>
+                    <br><br>
+                    ${technician.description}
+                </div>
+                `
+                :
+                ""
+            }
+        </div>
+        <div class="buttons">
+            <a
+                href="technician-edit.html"
+                class="btn edit"
+            >
+                ✏️ แก้ไขข้อมูลร้าน
+            </a>
+            <a
+                href="search.html"
+                class="btn home"
+            >
+                🔎 ค้นหาช่าง
+            </a>
+        </div>
+    `;
 }
-
+loadProfile();
 </script>
-
 </body>
 </html>
