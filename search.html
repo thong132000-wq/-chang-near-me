@@ -254,17 +254,21 @@ type="text"
 id="keyword"
 placeholder="เช่น ช่างแอร์ ช่างไฟ ช่างประปา"
 >
-<input
+<div class="province-search">
+    <input
+        type="text"
+        id="location"
+        placeholder="พิมพ์ชื่อจังหวัด เช่น ปทุมธานี"
+        autocomplete="off"
+        oninput="filterProvinces()"
+        onclick="showProvinces()"
+    >
 
-type="text"
-
-id="location"
-
-list="provinceList"
-
-placeholder="พิมพ์ชื่อจังหวัด เช่น ศรีสะเกษ"
-
->
+    <div
+        id="provinceDropdown"
+        class="province-dropdown"
+    ></div>
+</div>
 
 <datalist id="provinceList">
 
