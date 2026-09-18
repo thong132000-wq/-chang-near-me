@@ -236,7 +236,16 @@ async function loadProfile(){
     document.title =
         (technician.name || "หน้าร้านช่าง") +
         " | ช่างใกล้ฉัน";
-   // เพิ่มยอดเข้าชมหน้าร้าน
+  const {
+    data: sessionData
+} = await supabaseClient.auth.getSession();
+
+const user =
+    sessionData?.session?.user || null;
+
+const isOwner =
+    user && user.id === technician.id;
+    // เพิ่มยอดเข้าชมหน้าร้าน
 const { error: viewError } =
     await supabaseClient.rpc(
         "increment_profile_views",
