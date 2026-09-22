@@ -1160,8 +1160,22 @@ function contact(name, phone){
 /* =========================
    เริ่มต้น
 ========================= */
+const params = new URLSearchParams(
+    window.location.search
+);
+
+const keywordFromHome =
+    params.get("keyword");
+
+if(keywordFromHome){
+
+    document.getElementById("keyword").value =
+        keywordFromHome;
+
+}
 
 loadTechnicians();
+
 
 </script>
 
