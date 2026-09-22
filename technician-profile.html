@@ -197,7 +197,19 @@ new URLSearchParams(
 );
 const technicianId =
 params.get("id");
-/* =========================
+window.copyLine = async function(line) {
+    if (!line) return;
+
+    const cleanLine = line.replace(/^@/, "").trim();
+
+    try {
+        await navigator.clipboard.writeText(cleanLine);
+        alert("✅ คัดลอก LINE ID แล้ว\n\n" + cleanLine);
+    } catch (e) {
+        alert("❌ คัดลอกไม่สำเร็จ กรุณาคัดลอก LINE ID ด้วยตัวเองครับ");
+    }
+};
+    /* =========================
    โหลดหน้าร้าน
 ========================= */
 async function loadProfile(){
@@ -428,18 +440,41 @@ ${technician.phone ? `
         📞 โทรเบอร์สำรอง
     </button>
 ` : ""}
-    ${technician.line ? `
-    <button
-        type="button"
-        class="btn"
-        style="background:#06c755;"
-        onclick='navigator.clipboard.writeText("${technician.line.replace(/"/g, "&quot;").trim()}").then(() => alert("✅ คัดลอก LINE ID แล้ว\\n\\n${technician.line.replace(/^@/, "").trim()}\\n\\nนำไปค้นหาใน LINE ได้เลยครับ"))'
-    >
-        💬 คัดลอก LINE ID
-    </button>
+  ${technician.line ? `
+    <div style="
+        margin:10px 0;
+        padding:12px;
+        background:#f1f5f9;
+        border-radius:10px;
+        text-align:center;
+    ">
+        <div style="
+            font-weight:bold;
+            margin-bottom:8px;
+        ">
+            💬 LINE ID
+        </div>
+
+        <div style="
+            font-size:18px;
+            font-weight:bold;
+            margin-bottom:10px;
+        ">
+            ${technician.line}
+        </div>
+
+        <button
+            type="button"
+            class="btn"
+            style="background:#06c755;"
+            onclick='copyLine(${JSON.stringify(technician.line)})'
+        >
+            📋 คัดลอก LINE ID
+        </button>
+    </div>
 ` : ""}
 
-    ${isOwner ? `
+  ${isOwner ? `
         <a
             href="edit-technician.html"
             class="btn edit"
