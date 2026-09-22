@@ -475,19 +475,20 @@ ${technician.phone ? `
 ` : ""}
 
   ${isOwner ? `
-        <a
-            href="edit-technician.html"
-            class="btn edit"
-        >
-            ✏️ แก้ไขข้อมูลช่าง
-        </a>
-    ` : ""}
-<button
-    class="btn"
-    onclick="logout()"
->
-    🚪 ออกจากระบบ
-</button>
+    <a
+        href="edit-technician.html"
+        class="btn edit"
+    >
+        ✏️ แก้ไขข้อมูลช่าง
+    </a>
+
+    <button
+        class="btn"
+        onclick="logout()"
+    >
+        🚪 ออกจากระบบ
+    </button>
+` : ""}
     <a
         href="search.html"
         class="btn home"
