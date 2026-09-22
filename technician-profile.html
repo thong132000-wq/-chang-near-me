@@ -245,7 +245,7 @@ const user =
 
 const isOwner =
     user && user.id === technician.id;
-function contactLine(line, name){
+window.contactLine = function(line, name){
 
     if(!line){
 
