@@ -429,15 +429,15 @@ ${technician.phone ? `
     </button>
 ` : ""}
     ${technician.line ? `
-        <button
-            type="button"
-            class="btn"
-            style="background:#06c755;"
-        onclick='window.location.href="https://line.me/R/ti/p/@${encodeURIComponent(technician.line.replace(/^@/, "").trim())}"'
-        >
-            💬 ติดต่อ LINE
-        </button>
-    ` : ""}
+    <button
+        type="button"
+        class="btn"
+        style="background:#06c755;"
+        onclick='navigator.clipboard.writeText("${technician.line.replace(/"/g, "&quot;").trim()}").then(() => alert("✅ คัดลอก LINE ID แล้ว\\n\\n${technician.line.replace(/^@/, "").trim()}\\n\\nนำไปค้นหาใน LINE ได้เลยครับ"))'
+    >
+        💬 คัดลอก LINE ID
+    </button>
+` : ""}
 
     ${isOwner ? `
         <a
