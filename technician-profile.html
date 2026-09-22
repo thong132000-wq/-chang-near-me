@@ -435,13 +435,21 @@ if(viewError){
     >
         🔎 ค้นหาช่าง
     </a>
-
 </div>
 `;
+
+const lineButton = document.getElementById("lineButton");
+
+if(lineButton){
+    lineButton.addEventListener("click", function(){
+        contactLine(
+            technician.line,
+            technician.name || "ช่าง"
+        );
+    });
+}
+
 }
 
 loadProfile();
-</script>
-</body>
-</html>
 
