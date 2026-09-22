@@ -408,7 +408,16 @@ if(viewError){
             }
         </div>
       <div class="buttons">
-
+${technician.phone ? `
+    <button
+        type="button"
+        class="btn"
+        style="background:#2563eb;"
+        onclick='window.location.href="tel:${technician.phone}"'
+    >
+        📞 โทรหาช่าง
+    </button>
+` : ""}
     ${technician.line ? `
         <button
             type="button"
