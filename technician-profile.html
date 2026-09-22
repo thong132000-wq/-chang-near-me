@@ -418,6 +418,16 @@ ${technician.phone ? `
         📞 โทรหาช่าง
     </button>
 ` : ""}
+   ${technician.phone2 ? `
+    <button
+        type="button"
+        class="btn"
+        style="background:#3b82f6;"
+        onclick='window.location.href="tel:${technician.phone2}"'
+    >
+        📞 โทรเบอร์สำรอง
+    </button>
+` : ""}
     ${technician.line ? `
         <button
             type="button"
