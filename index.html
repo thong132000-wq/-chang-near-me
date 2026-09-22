@@ -1303,28 +1303,14 @@ const supabaseClient =
   const keyword =
     document.getElementById("searchInput").value.trim();
 
-  const location =
-    document.getElementById("locationSelect").value;
-
   let url = "search.html";
 
-  const params = new URLSearchParams();
-
   if (keyword) {
-    params.set("keyword", keyword);
-  }
-
-  if (location) {
-    params.set("location", location);
-  }
-
-  if (params.toString()) {
-    url += "?" + params.toString();
+    url += "?keyword=" + encodeURIComponent(keyword);
   }
 
   window.location.href = url;
 }
-
 
     function selectCategory(category) {
 
