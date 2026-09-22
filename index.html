@@ -1311,17 +1311,14 @@ const supabaseClient =
 
   window.location.href = url;
 }
+function selectCategory(category) {
 
-    function selectCategory(category) {
+  window.location.href =
+    "search.html?keyword=" +
+    encodeURIComponent(category);
 
-      document.getElementById("searchInput").value = category;
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-    }
+}
+    
 
 
     function viewProfile(name) {
