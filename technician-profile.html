@@ -414,7 +414,7 @@ if(viewError){
             type="button"
             class="btn"
             style="background:#06c755;"
-        onclick="window.location.href='https://line.me/R/ti/p/@' + encodeURIComponent(technician.line.replace(/^@/, '').trim())"
+        onclick='window.location.href="https://line.me/R/ti/p/@${encodeURIComponent(technician.line.replace(/^@/, "").trim())}"'
         >
             💬 ติดต่อ LINE
         </button>
