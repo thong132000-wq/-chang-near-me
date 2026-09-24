@@ -1319,18 +1319,13 @@ function selectCategory(category) {
 
 }
     
+function viewProfile(id) {
+  window.location.href =
+    "technician-profile.html?id=" +
+    encodeURIComponent(id);
+}
 
-
-    function viewProfile(name) {
-
-      alert(
-        "กำลังเปิดโปรไฟล์\n\n" +
-        name +
-        "\n\nหน้าโปรไฟล์ช่างจะสร้างในขั้นตอนถัดไป"
-      );
-
-    }
-
+    
 
     function contactTechnician(name) {
 
