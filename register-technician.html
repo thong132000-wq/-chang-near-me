@@ -250,6 +250,10 @@
     ยังไม่ได้ปักตำแหน่ง
   </div>
 </div>
+  <div
+  id="map"
+  style="width:100%;height:350px;margin-top:15px;border-radius:12px;overflow:hidden;"
+></div>
         <label>
           ประสบการณ์
         </label>
@@ -333,8 +337,49 @@
 
   let latitude = null;
   let longitude = null;
+let map;
+let marker;
+function initMap() {
 
+  map = L.map("map").setView(
+    [13.7367, 100.5231],
+    6
+  );
 
+  L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+      attribution:
+        "&copy; OpenStreetMap contributors"
+    }
+  ).addTo(map);
+
+  map.on("click", function(e) {
+
+    latitude = e.latlng.lat;
+    longitude = e.latlng.lng;
+
+    if (marker) {
+
+      marker.setLatLng([
+        latitude,
+        longitude
+      ]);
+
+    } else {
+
+      marker = L.marker([
+        latitude,
+        longitude
+      ]).addTo(map);
+
+    }
+
+    document.getElementById("gpsStatus").textContent =
+      "✅ เลือกตำแหน่งช่างเรียบร้อยแล้ว";
+
+  });
+}
   // =========================
   // GPS ช่าง
   // =========================
@@ -692,6 +737,7 @@ description: description
     window.location.href =
       "login.html";
   }
+initMap();
 </script>
 </body>
 </html>
