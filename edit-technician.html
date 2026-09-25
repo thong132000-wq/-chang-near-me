@@ -151,28 +151,33 @@
         </div>
 
         <label>ประเภทช่าง</label>
+<div style="position:relative;">
+  <input
+    type="text"
+    id="category"
+    placeholder="พิมพ์หรือเลือกประเภทช่าง"
+    autocomplete="off"
+    required
+  >
 
-        <input
-  type="text"
-  id="category"
-  list="categoryList"
-  placeholder="พิมพ์หรือเลือกประเภทช่าง"
-  required
->
-
-<datalist id="categoryList">
-  <option value="ช่างแอร์">
-  <option value="ช่างไฟ">
-  <option value="ช่างประปา">
-  <option value="ช่างซ่อมรถ">
-  <option value="🚗 รถสไลด์">
-  <option value="ช่างก่อสร้าง">
-  <option value="ช่างทาสี">
-  <option value="ช่างเชื่อม">
-  <option value="ช่างเฟอร์นิเจอร์">
-  <option value="ช่างเครื่องใช้ไฟฟ้า">
-  <option value="ช่างอื่น ๆ">
-</datalist>
+  <div
+    id="categoryDropdown"
+    style="
+      display:none;
+      position:absolute;
+      left:0;
+      right:0;
+      top:100%;
+      background:white;
+      border:1px solid #ddd;
+      border-radius:10px;
+      max-height:220px;
+      overflow-y:auto;
+      z-index:9999;
+      box-shadow:0 4px 12px rgba(0,0,0,0.12);
+    "
+  ></div>
+</div>
 
         <label>จังหวัดที่ให้บริการ</label>
 <input
@@ -750,7 +755,69 @@ window.location.href =
 
     encodeURIComponent(user.id);
   }
-    loadTechnician();
+   const technicianTypes = [
+  "ช่างแอร์",
+  "ช่างไฟ",
+  "ช่างประปา",
+  "ช่างซ่อมรถ",
+  "🚗 รถสไลด์",
+  "ช่างก่อสร้าง",
+  "ช่างทาสี",
+  "ช่างเชื่อม",
+  "ช่างเฟอร์นิเจอร์",
+  "ช่างเครื่องใช้ไฟฟ้า",
+  "ช่างอื่น ๆ"
+];
+
+const categoryInput = document.getElementById("category");
+const categoryDropdown = document.getElementById("categoryDropdown");
+
+function showCategoryDropdown() {
+  const keyword = categoryInput.value.trim().toLowerCase();
+
+  const filtered = technicianTypes.filter(type =>
+    type.toLowerCase().includes(keyword)
+  );
+
+  categoryDropdown.innerHTML = "";
+
+  filtered.forEach(type => {
+    const item = document.createElement("div");
+
+    item.textContent = type;
+
+    item.style.cssText = `
+      padding:12px 15px;
+      cursor:pointer;
+      border-bottom:1px solid #eee;
+      background:white;
+    `;
+
+    item.onclick = function() {
+      categoryInput.value = type;
+      categoryDropdown.style.display = "none";
+    };
+
+    categoryDropdown.appendChild(item);
+  });
+
+  categoryDropdown.style.display =
+    filtered.length > 0 ? "block" : "none";
+}
+
+categoryInput.addEventListener("focus", showCategoryDropdown);
+
+categoryInput.addEventListener("input", showCategoryDropdown);
+
+document.addEventListener("click", function(e) {
+  if (
+    !categoryInput.contains(e.target) &&
+    !categoryDropdown.contains(e.target)
+  ) {
+    categoryDropdown.style.display = "none";
+  }
+});
+   loadTechnician();
 </script>
 </body>
 </html>
