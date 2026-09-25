@@ -190,41 +190,117 @@
         <div class="section-title">
           🔧 ข้อมูลการให้บริการ
         </div>
-       <select id="category" required>
-  <option value="">-- เลือกประเภทช่าง --</option>
-  <option>ช่างแอร์</option>
-  <option>ช่างไฟ</option>
-  <option>ช่างประปา</option>
-  <option>ช่างซ่อมรถ</option>
-  <option>🚗 รถสไลด์</option>
-  <option>ช่างก่อสร้าง</option>
-  <option>ช่างทาสี</option>
-  <option>ช่างเชื่อม</option>
-  <option>ช่างเฟอร์นิเจอร์</option>
-  <option>ช่างเครื่องใช้ไฟฟ้า</option>
-  <option>ช่างอื่น ๆ</option>
-</select>
+       <input
+  type="text"
+  id="category"
+  list="categoryList"
+  placeholder="พิมพ์หรือเลือกประเภทช่าง"
+  required
+>
+
+<datalist id="categoryList">
+  <option value="ช่างแอร์">
+  <option value="ช่างไฟ">
+  <option value="ช่างประปา">
+  <option value="ช่างซ่อมรถ">
+  <option value="🚗 รถสไลด์">
+  <option value="ช่างก่อสร้าง">
+  <option value="ช่างทาสี">
+  <option value="ช่างเชื่อม">
+  <option value="ช่างเฟอร์นิเจอร์">
+  <option value="ช่างเครื่องใช้ไฟฟ้า">
+  <option value="ช่างอื่น ๆ">
+</datalist>
         <label>
           จังหวัดที่ให้บริการ <span class="required">*</span>
         </label>
-        <select id="province" required>
-          <option value="">-- เลือกจังหวัด --</option>
-          <option>กรุงเทพมหานคร</option>
-          <option>นนทบุรี</option>
-          <option>ปทุมธานี</option>
-          <option>สมุทรปราการ</option>
-          <option>นครปฐม</option>
-          <option>สมุทรสาคร</option>
-          <option>พระนครศรีอยุธยา</option>
-          <option>ชลบุรี</option>
-          <option>เชียงใหม่</option>
-          <option>นครราชสีมา</option>
-          <option>ขอนแก่น</option>
-          <option>อุดรธานี</option>
-          <option>อุบลราชธานี</option>
-          <option>ศรีสะเกษ</option>
-          <option>อื่น ๆ</option>
-        </select>
+        <input
+  type="text"
+  id="province"
+  list="provinceList"
+  placeholder="พิมพ์หรือเลือกจังหวัด"
+  required
+>
+
+<datalist id="provinceList">
+  <option value="กรุงเทพมหานคร">
+  <option value="กระบี่">
+  <option value="กาญจนบุรี">
+  <option value="กาฬสินธุ์">
+  <option value="กำแพงเพชร">
+  <option value="ขอนแก่น">
+  <option value="จันทบุรี">
+  <option value="ฉะเชิงเทรา">
+  <option value="ชลบุรี">
+  <option value="ชัยนาท">
+  <option value="ชัยภูมิ">
+  <option value="ชุมพร">
+  <option value="ตรัง">
+  <option value="ตราด">
+  <option value="ตาก">
+  <option value="นครนายก">
+  <option value="นครปฐม">
+  <option value="นครพนม">
+  <option value="นครราชสีมา">
+  <option value="นครศรีธรรมราช">
+  <option value="นครสวรรค์">
+  <option value="นนทบุรี">
+  <option value="นราธิวาส">
+  <option value="น่าน">
+  <option value="บึงกาฬ">
+  <option value="บุรีรัมย์">
+  <option value="ปทุมธานี">
+  <option value="ประจวบคีรีขันธ์">
+  <option value="ปราจีนบุรี">
+  <option value="ปัตตานี">
+  <option value="พะเยา">
+  <option value="พังงา">
+  <option value="พัทลุง">
+  <option value="พิจิตร">
+  <option value="พิษณุโลก">
+  <option value="ภูเก็ต">
+  <option value="มหาสารคาม">
+  <option value="มุกดาหาร">
+  <option value="ยะลา">
+  <option value="ยโสธร">
+  <option value="ร้อยเอ็ด">
+  <option value="ระนอง">
+  <option value="ระยอง">
+  <option value="ราชบุรี">
+  <option value="ลพบุรี">
+  <option value="ลำปาง">
+  <option value="ลำพูน">
+  <option value="ศรีสะเกษ">
+  <option value="สกลนคร">
+  <option value="สงขลา">
+  <option value="สตูล">
+  <option value="สมุทรปราการ">
+  <option value="สมุทรสงคราม">
+  <option value="สมุทรสาคร">
+  <option value="สระแก้ว">
+  <option value="สระบุรี">
+  <option value="สิงห์บุรี">
+  <option value="สุพรรณบุรี">
+  <option value="สุราษฎร์ธานี">
+  <option value="สุรินทร์">
+  <option value="สุโขทัย">
+  <option value="หนองคาย">
+  <option value="หนองบัวลำภู">
+  <option value="อ่างทอง">
+  <option value="อำนาจเจริญ">
+  <option value="อุดรธานี">
+  <option value="อุตรดิตถ์">
+  <option value="อุทัยธานี">
+  <option value="อุบลราชธานี">
+  <option value="เชียงราย">
+  <option value="เชียงใหม่">
+  <option value="เพชรบุรี">
+  <option value="เพชรบูรณ์">
+  <option value="เลย">
+  <option value="แพร่">
+  <option value="แม่ฮ่องสอน">
+  <option value="อื่น ๆ">
+</datalist>
        <div class="gps-box">
   <strong>📍 ตำแหน่งร้าน / จุดให้บริการ</strong>
 
