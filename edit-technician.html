@@ -765,7 +765,82 @@ document.addEventListener("click", function(e) {
     categoryDropdown.style.display = "none";
   }
 });
-   loadTechnician();
+ const provinces = [
+  "กรุงเทพมหานคร","กระบี่","กาญจนบุรี","กาฬสินธุ์","กำแพงเพชร",
+  "ขอนแก่น","จันทบุรี","ฉะเชิงเทรา","ชลบุรี","ชัยนาท",
+  "ชัยภูมิ","ชุมพร","ตรัง","ตราด","ตาก",
+  "นครนายก","นครปฐม","นครพนม","นครราชสีมา","นครศรีธรรมราช",
+  "นครสวรรค์","นนทบุรี","นราธิวาส","น่าน","บึงกาฬ",
+  "บุรีรัมย์","ปทุมธานี","ประจวบคีรีขันธ์","ปราจีนบุรี","ปัตตานี",
+  "พะเยา","พังงา","พัทลุง","พิจิตร","พิษณุโลก",
+  "ภูเก็ต","มหาสารคาม","มุกดาหาร","ยะลา","ยโสธร",
+  "ร้อยเอ็ด","ระนอง","ระยอง","ราชบุรี","ลพบุรี",
+  "ลำปาง","ลำพูน","ศรีสะเกษ","สกลนคร","สงขลา",
+  "สตูล","สมุทรปราการ","สมุทรสงคราม","สมุทรสาคร","สระแก้ว",
+  "สระบุรี","สิงห์บุรี","สุพรรณบุรี","สุราษฎร์ธานี","สุรินทร์",
+  "สุโขทัย","หนองคาย","หนองบัวลำภู","อ่างทอง","อำนาจเจริญ",
+  "อุดรธานี","อุตรดิตถ์","อุทัยธานี","อุบลราชธานี","เพชรบุรี",
+  "เพชรบูรณ์","เลย","แพร่","แม่ฮ่องสอน","เชียงราย",
+  "เชียงใหม่"
+];
+
+const provinceInput = document.getElementById("province");
+const provinceDropdown =
+  document.getElementById("provinceDropdown");
+
+function showProvinceDropdown() {
+  const keyword =
+    provinceInput.value.trim().toLowerCase();
+
+  const filtered = provinces.filter(province =>
+    province.toLowerCase().includes(keyword)
+  );
+
+  provinceDropdown.innerHTML = "";
+
+  filtered.forEach(province => {
+    const item = document.createElement("div");
+
+    item.textContent = province;
+
+    item.style.cssText = `
+      padding:12px 15px;
+      cursor:pointer;
+      border-bottom:1px solid #eee;
+      background:white;
+    `;
+
+    item.onclick = function() {
+      provinceInput.value = province;
+      provinceDropdown.style.display = "none";
+    };
+
+    provinceDropdown.appendChild(item);
+  });
+
+  provinceDropdown.style.display =
+    filtered.length > 0 ? "block" : "none";
+}
+
+provinceInput.addEventListener(
+  "focus",
+  showProvinceDropdown
+);
+
+provinceInput.addEventListener(
+  "input",
+  showProvinceDropdown
+);
+
+document.addEventListener("click", function(e) {
+  if (
+    !provinceInput.contains(e.target) &&
+    !provinceDropdown.contains(e.target)
+  ) {
+    provinceDropdown.style.display = "none";
+  }
+});
+ loadTechnician();
 </script>
 </body>
 </html>
