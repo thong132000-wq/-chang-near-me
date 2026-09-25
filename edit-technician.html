@@ -180,96 +180,44 @@
 </div>
 
         <label>จังหวัดที่ให้บริการ</label>
-<input
-  type="text"
-  id="province"
-  list="provinceList"
-  placeholder="พิมพ์หรือเลือกจังหวัด"
-  required
->
 
-<datalist id="provinceList">
-  <option value="กรุงเทพมหานคร">
-  <option value="กระบี่">
-  <option value="กาญจนบุรี">
-  <option value="กาฬสินธุ์">
-  <option value="กำแพงเพชร">
-  <option value="ขอนแก่น">
-  <option value="จันทบุรี">
-  <option value="ฉะเชิงเทรา">
-  <option value="ชลบุรี">
-  <option value="ชัยนาท">
-  <option value="ชัยภูมิ">
-  <option value="ชุมพร">
-  <option value="ตรัง">
-  <option value="ตราด">
-  <option value="ตาก">
-  <option value="นครนายก">
-  <option value="นครปฐม">
-  <option value="นครพนม">
-  <option value="นครราชสีมา">
-  <option value="นครศรีธรรมราช">
-  <option value="นครสวรรค์">
-  <option value="นนทบุรี">
-  <option value="นราธิวาส">
-  <option value="น่าน">
-  <option value="บึงกาฬ">
-  <option value="บุรีรัมย์">
-  <option value="ปทุมธานี">
-  <option value="ประจวบคีรีขันธ์">
-  <option value="ปราจีนบุรี">
-  <option value="ปัตตานี">
-  <option value="พะเยา">
-  <option value="พังงา">
-  <option value="พัทลุง">
-  <option value="พิจิตร">
-  <option value="พิษณุโลก">
-  <option value="ภูเก็ต">
-  <option value="มหาสารคาม">
-  <option value="มุกดาหาร">
-  <option value="ยะลา">
-  <option value="ยโสธร">
-  <option value="ร้อยเอ็ด">
-  <option value="ระนอง">
-  <option value="ระยอง">
-  <option value="ราชบุรี">
-  <option value="ลพบุรี">
-  <option value="ลำปาง">
-  <option value="ลำพูน">
-  <option value="ศรีสะเกษ">
-  <option value="สกลนคร">
-  <option value="สงขลา">
-  <option value="สตูล">
-  <option value="สมุทรปราการ">
-  <option value="สมุทรสงคราม">
-  <option value="สมุทรสาคร">
-  <option value="สระแก้ว">
-  <option value="สระบุรี">
-  <option value="สิงห์บุรี">
-  <option value="สุพรรณบุรี">
-  <option value="สุราษฎร์ธานี">
-  <option value="สุรินทร์">
-  <option value="สุโขทัย">
-  <option value="หนองคาย">
-  <option value="หนองบัวลำภู">
-  <option value="อ่างทอง">
-  <option value="อำนาจเจริญ">
-  <option value="อุดรธานี">
-  <option value="อุตรดิตถ์">
-  <option value="อุทัยธานี">
-  <option value="อุบลราชธานี">
-  <option value="เชียงราย">
-  <option value="เชียงใหม่">
-  <option value="เพชรบุรี">
-  <option value="เพชรบูรณ์">
-  <option value="เลย">
-  <option value="แพร่">
-  <option value="แม่ฮ่องสอน">
-  <option value="อื่น ๆ">
-</datalist>
         
 <label>📍 ตำแหน่งช่าง</label>
 
+<button
+  type="button"
+  class="btn"
+  style="background:#2563eb;margin-top:5px;"
+  onclick="getTechnicianLocation()"
+>
+ <label>จังหวัดที่ให้บริการ</label>
+
+<div style="position:relative;">
+  <input
+    type="text"
+    id="province"
+    placeholder="พิมพ์หรือเลือกจังหวัด"
+    autocomplete="off"
+    required
+  >
+
+  <div
+    id="provinceDropdown"
+    style="
+      display:none;
+      position:absolute;
+      left:0;
+      right:0;
+      top:100%;
+      background:white;
+      border:1px solid #ddd;
+      border-radius:10px;
+      max-height:220px;
+      overflow-y:auto;
+      z-index:9998;
+      box-shadow:0 4px 12px rgba(0,0,0,0.12);
+    "
+  ></div>
 <button
   type="button"
   class="btn"
