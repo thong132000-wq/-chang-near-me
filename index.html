@@ -1351,29 +1351,30 @@ function login() {
   window.location.href = "login.html";
 
 }
-
 async function myStore() {
 
-  const { data: { session } } =
-
+  const { data: { session }, error } =
     await supabaseClient.auth.getSession();
 
-  if (!session) {
-
-    alert("กรุณาเข้าสู่ระบบก่อนครับ");
-
-    window.location.href = "login.html";
-
+  if (error) {
+    console.error("Session error:", error);
+    alert("ไม่สามารถตรวจสอบการเข้าสู่ระบบได้ครับ");
     return;
-
   }
 
+  if (!session || !session.user) {
+    alert("กรุณาเข้าสู่ระบบก่อนครับ");
+    window.location.href = "login.html";
+    return;
+  }
+
+  const userId = session.user.id;
+
+  console.log("My Store User ID:", userId);
+
   window.location.href =
-
     "technician-profile.html?id=" +
-
-    encodeURIComponent(session.user.id);
-
+    encodeURIComponent(userId);
 }
 
 
