@@ -226,7 +226,34 @@ if (error) {
  return; 
 }
   console.log("สมัคร Auth สำเร็จ", data);
+const userId = data.user.id;
 
+const { error: customerError } =
+  await supabaseClient
+    .from("customers")
+    .insert([
+      {
+        id: userId,
+        name: name,
+        phone: phone,
+        province: province
+      }
+    ]);
+
+if (customerError) {
+  console.error("Customer insert error:", customerError);
+
+  alert(
+    "❌ สร้างบัญชีลูกค้าสำเร็จ แต่บันทึกข้อมูลลูกค้าไม่สำเร็จ\n\n" +
+    customerError.message
+  );
+
+  return;
+}
+
+alert("✅ สมัครสมาชิกสำเร็จครับ");
+
+window.location.href = "login.html";
   
 }
   </script>
