@@ -276,12 +276,23 @@ button:hover{
 
 
 <div class="search-box">
+<div class="keyword-search">
 
 <input
 type="text"
 id="keyword"
 placeholder="เช่น ช่างแอร์ ช่างไฟ ช่างประปา"
+autocomplete="off"
+oninput="showKeywordSuggestions()"
 >
+
+<div
+id="keywordSuggestions"
+class="keyword-suggestions"
+></div>
+
+</div>
+
 <div class="province-search">
     <input
         type="text"
