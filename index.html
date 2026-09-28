@@ -720,14 +720,15 @@
       <div class="nav-actions">
 
   <button class="btn btn-outline" onclick="login()">
-    เข้าสู่ระบบ
+    👤 เข้าสู่ระบบ
   </button>
-  <button class="btn btn-outline" onclick="myStore()">
-    🏪 หน้าร้านของฉัน
+
+  <button class="btn btn-orange" onclick="registerCustomer()">
+    📝 สมัครลูกค้า
   </button>
-  
-  <button class="btn btn-orange" onclick="registerTechnician()">
-    เป็นช่าง
+
+  <button class="btn btn-outline" onclick="registerTechnician()">
+    🔧 เป็นช่าง
   </button>
 
 </div>
@@ -1349,9 +1350,11 @@ function viewAllTechnicians() {
 function login() {
 
   window.location.href = "login.html";
-
 }
-async function myStore() {
+function registerCustomer() {
+  window.location.href = "register-customer.html";
+}
+    async function myStore() {
 
   const { data: { session }, error } =
     await supabaseClient.auth.getSession();
