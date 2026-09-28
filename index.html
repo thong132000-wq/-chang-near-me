@@ -630,14 +630,15 @@
 .nav-actions {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 7px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 5px;
 }
 
 .nav-actions .btn {
   width: 100%;
-  padding: 8px 6px;
-  font-size: 12px;
+  min-width: 0;
+  padding: 8px 3px;
+  font-size: 11px;
   white-space: nowrap;
 }
 
