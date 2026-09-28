@@ -414,12 +414,19 @@ function selectKeywordSuggestion(type) {
         return;
     }
 
-    const types = [...new Set(
-        technicians
-            .map(t => t.type)
-            .filter(type => type)
-    )];
-
+   const types = [
+    "ช่างแอร์",
+    "ช่างไฟ",
+    "ช่างประปา",
+    "ช่างซ่อมรถ",
+    "🚗 รถสไลด์",
+    "ช่างก่อสร้าง",
+    "ช่างทาสี",
+    "ช่างเชื่อม",
+    "ช่างเฟอร์นิเจอร์",
+    "ช่างเครื่องใช้ไฟฟ้า",
+    "ช่างอื่น ๆ"
+]; 
     const suggestions = types.filter(type =>
         type.toLowerCase().includes(text)
     );
