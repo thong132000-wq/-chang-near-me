@@ -392,6 +392,49 @@ id="empty"
 <script>
 
 let technicians = [];
+function showKeywordSuggestions() {
+
+    const input = document.getElementById("keyword");
+    const box = document.getElementById("keywordSuggestions");
+
+    const text = input.value.trim().toLowerCase();
+
+    if (!text) {
+        box.innerHTML = "";
+        box.style.display = "none";
+        return;
+    }
+
+    const types = [...new Set(
+        technicians
+            .map(t => t.type)
+            .filter(type => type)
+    )];
+
+    const suggestions = types.filter(type =>
+        type.toLowerCase().includes(text)
+    );
+
+    if (suggestions.length === 0) {
+        box.innerHTML = "";
+        box.style.display = "none";
+        return;
+    }
+
+    box.innerHTML = suggestions
+        .slice(0, 8)
+        .map(type => `
+            <div
+                class="keyword-option"
+                onclick="selectKeywordSuggestion('${type.replace(/'/g, "\\'")}')"
+            >
+                ${type}
+            </div>
+        `)
+        .join("");
+
+    box.style.display = "block";
+}
     const SUPABASE_URL =
     "https://adfnwfdhgqsubmlwdorr.supabase.co";
 
