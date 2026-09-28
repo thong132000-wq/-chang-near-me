@@ -393,7 +393,16 @@ id="empty"
 
 let technicians = [];
 function showKeywordSuggestions() {
+function selectKeywordSuggestion(type) {
 
+    document.getElementById("keyword").value = type;
+
+    const box = document.getElementById("keywordSuggestions");
+    box.innerHTML = "";
+    box.style.display = "none";
+
+    search();
+}
     const input = document.getElementById("keyword");
     const box = document.getElementById("keywordSuggestions");
 
